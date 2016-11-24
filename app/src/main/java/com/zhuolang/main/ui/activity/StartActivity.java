@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.zhuolang.main.R;
+import com.zhuolang.main.common.APPConfig;
+import com.zhuolang.main.utils.SharedPrefsUtil;
 
 /**
  * Created by Administrator on 2016/11/22.
@@ -18,12 +20,12 @@ public class StartActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                String Uid = SharedPrefsUtil.getValue(StartActivity.this, "account", "");
+                boolean is_login = SharedPrefsUtil.getValue(StartActivity.this, APPConfig.IS_LOGIN,false);
                 Intent intent = new Intent();
-//                if (!Uid.equals(""))
-                intent.setClass(StartActivity.this, MainActivity.class);
-//                else
-//                    intent.setClass(StartActivity.this, LoginActivity.class);
+                if (is_login)
+                    intent.setClass(StartActivity.this, MainActivity.class);
+                else
+                    intent.setClass(StartActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

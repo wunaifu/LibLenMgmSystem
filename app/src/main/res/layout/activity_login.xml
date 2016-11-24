@@ -18,7 +18,7 @@
         android:id="@+id/et_login_account"
         android:hint="请输入账号"
         android:phoneNumber="true"
-        android:maxLength="11"
+        android:maxLength="10"
         android:paddingLeft="20dp"
         android:layout_width="match_parent"
         android:layout_height="35dp"

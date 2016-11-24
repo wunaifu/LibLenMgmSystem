@@ -17,7 +17,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
             +"UserPhone varchar(15),"
             +"UserClass varchar(20),"
             +"UserType int,"
-            +"UserSex int,"
+            +"UserSex varchar(5),"
+            +"UserAdress varchar(28),"
             +"UserPassword varchar(30))";
 
     public static final String CREATE_BOOK="create table book_tab("

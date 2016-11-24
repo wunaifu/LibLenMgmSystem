@@ -15,6 +15,7 @@ import com.zhuolang.main.database.MyDatabaseHelper;
 import com.zhuolang.main.ui.fragment.MeTabFragment;
 import com.zhuolang.main.R;
 import com.zhuolang.main.ui.fragment.ShareTabFragment;
+import com.zhuolang.main.utils.SharedPrefsUtil;
 import com.zhuolang.main.view.ChangeColorIconWithText;
 import com.zhuolang.main.ui.fragment.HomepageTabFragment;
 
@@ -39,12 +40,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        setOverflowButtonAlways();
-//        getActionBar().setDisplayShowHomeEnabled(false);
+
         Log.d("activityID","这个是----------:"+this.toString());
 
         dbHelper=new MyDatabaseHelper(this,"LibrarySystem.db",null,1);
-        dbHelper.getWritableDatabase();//创建或打开数据库
+//        dbHelper.getWritableDatabase();//创建或打开数据库
 
         initView();//获取viewpager
         initDatas();//初始化数据

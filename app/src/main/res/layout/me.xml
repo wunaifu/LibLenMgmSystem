@@ -14,7 +14,7 @@
             android:id="@+id/image_me_mineinfo"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:src="@drawable/myicon"
+            android:src="@drawable/user_icon"
             android:background="#5888e7"
             android:layout_width="70dp"
             android:layout_height="70dp" />

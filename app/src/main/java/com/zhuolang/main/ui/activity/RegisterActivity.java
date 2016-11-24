@@ -2,26 +2,19 @@ package com.zhuolang.main.ui.activity;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.zhuolang.main.R;
 import com.zhuolang.main.database.MyDatabaseHelper;
-import com.zhuolang.main.utils.SharedPrefsUtil;
-import com.zhuolang.main.view.CustomWaitDialog;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by jat on 2016/11/1.
@@ -62,9 +55,22 @@ public class RegisterActivity extends Activity {
 
         bt_register = (Button) findViewById(R.id.bt_register_reg);
 
-        radiogroup = (RadioGroup) findViewById(R.id.register_radiogro_type);
-        dbHelper = new MyDatabaseHelper(this, "LibrarySystem.db", null, 3);
-//        dbHelper.getWritableDatabase();//创建或打开数据库
+        dbHelper = new MyDatabaseHelper(this, "LibrarySystem.db", null, 1);
+//        SQLiteDatabase db = dbHelper.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        Log.d("testrun","5SQLiteDatabase db = dbHelper.getWritableDatabase();");
+//        //开始组装数据
+//        values.put("UserID", "3114002566");
+//        values.put("UserPassword", "123456");
+//        values.put("UserName", "吴乃福");
+//        values.put("UserAge", 18);
+//        values.put("UserClass", "140803");
+//        values.put("UserSex", "男");
+//        values.put("UserType", 0);
+//        values.put("UserPhone", "18219111626");
+//        values.put("UserAdress","学校");
+//        db.insert("user_tab", null, values);
+//        Toast.makeText(RegisterActivity.this, "注册成功,返回登陆", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -74,19 +80,57 @@ public class RegisterActivity extends Activity {
         bt_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-                ContentValues values = new ContentValues();
-                //开始组装数据
-                values.put("UserAID", "3114002566");
-                values.put("UserPassword", "123456");
-                values.put("UserName", "张三");
-                values.put("UserAge",18);
-                values.put("UserClass","140803");
-                values.put("UserSex",1);
-                values.put("UserType",1);
-                values.put("UserPhone", "18219111626");
-                db.insert("user_tab", null, values);
-                Toast.makeText(RegisterActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
+                int flag=0;
+                id = et_id.getText().toString().trim();
+                psd = et_psd.getText().toString().trim();
+                name = et_name.getText().toString().trim();
+                phone = et_phone.getText().toString().trim();
+                if (id.equals("") || psd.equals("")) {
+                    Toast.makeText(RegisterActivity.this, "账号密码不能为空！", Toast.LENGTH_SHORT).show();
+                }else{
+                    SQLiteDatabase db = dbHelper.getWritableDatabase();
+                    Log.d("testrun","1SQLiteDatabase db = dbHelper.getWritableDatabase();");
+                    Cursor cursor=db.query("user_tab",null, null, null, null,null,null);
+                    if (cursor.moveToFirst()){
+                        do {
+                            //遍历Cursor对象，取出数据
+                            String userId=cursor.getString(cursor.getColumnIndex("UserId"));
+                            Log.d("testrun","3SQLiteDatabase db = dbHelper.getWritableDatabase();");
+                            if (userId.equals(id)) {
+                                flag=1;
+                                Log.d("testrun","2SQLiteDatabase db = dbHelper.getWritableDatabase();");
+                                break;
+                            }
+                        }while (cursor.moveToNext());
+                        cursor.close();
+                        if (flag==1) {
+                            Toast.makeText(RegisterActivity.this, "账号已经存在，请重新确认！", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Log.d("testrun","4SQLiteDatabase db = dbHelper.getWritableDatabase();");
+                            ContentValues values = new ContentValues();
+                            Log.d("testrun","5SQLiteDatabase db = dbHelper.getWritableDatabase();");
+                            //开始组装数据
+                            values.put("UserID", id);
+                            values.put("UserPassword", psd);
+                            values.put("UserName", name);
+                            values.put("UserAge", 0);
+                            values.put("UserClass", "");
+                            values.put("UserSex", "");
+                            values.put("UserType", 0);
+                            values.put("UserPhone", phone);
+                            values.put("UserAdress","");
+                            db.insert("user_tab", null, values);
+                            Toast.makeText(RegisterActivity.this, "注册成功,返回登陆", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent();
+                            intent.setClass(RegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                    }
+
+
+                }
             }
         });
     }

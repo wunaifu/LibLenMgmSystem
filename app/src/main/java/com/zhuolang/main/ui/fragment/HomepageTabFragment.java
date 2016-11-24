@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhuolang.main.R;
+import com.zhuolang.main.common.APPConfig;
+import com.zhuolang.main.utils.SharedPrefsUtil;
 
 /**
  * Created by wnf on 2016/10/29.
@@ -21,7 +23,7 @@ public class HomepageTabFragment extends Fragment implements View.OnClickListene
 
     private View view = null;
 
-    private String type;
+    private int userType;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class HomepageTabFragment extends Fragment implements View.OnClickListene
         view = new View(getActivity());
         view = inflater.inflate(R.layout.homepage, container, false);
         Log.d("activityID", "这个是HomepageTabFragment----------:" + this.toString());
+        userType = SharedPrefsUtil.getValue(getActivity(), APPConfig.USERTYPE, 0);
         initView(view);
         return view;
     }
