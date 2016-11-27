@@ -37,8 +37,8 @@ public class LendBookHistryActivity extends Activity implements AdapterView.OnIt
     private ImageView img_back;
 
     private MyDatabaseHelper dbHelper;
-    private LendHistryAdapter adapter;
     private SQLiteDatabase db;
+    private LendHistryAdapter adapter;
     private List<NowLend> nowLendList = new ArrayList<>();
     private List<Book> bookList = new ArrayList<>();
     private String userId;
@@ -60,15 +60,15 @@ public class LendBookHistryActivity extends Activity implements AdapterView.OnIt
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nowlendhistry);
+        setContentView(R.layout.activity_lendbookhistry);
         userId = SharedPrefsUtil.getValue(this, APPConfig.ACCOUNT, "");
         dbHelper = new MyDatabaseHelper(this, "LibrarySystem.db", null, 1);
         db = dbHelper.getWritableDatabase();
 
-        listView = (ListView) findViewById(R.id.lv_nowlendhistry_list);
+        listView = (ListView) findViewById(R.id.lv_lendbookhistry_list);
         listView.setOnItemClickListener(this);
 
-        img_back = (ImageView) findViewById(R.id.img_nowlendhistry_back);
+        img_back = (ImageView) findViewById(R.id.img_lendbookhistry_back);
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +106,7 @@ public class LendBookHistryActivity extends Activity implements AdapterView.OnIt
                         Log.d("aaaaaaaaaaaaa", "ddddddddddddd" + lendRead.getDays());
                         if (lendRead.getUserId().equals(userId) && !lendRead.getDays().equals("false")) {
 //                        if (lendRead.getUserId().equals(userId)){
+                            lendRead.setLendId(cursor.getString(cursor.getColumnIndex("LendId")));
                             lendRead.setBookId(cursor.getString(cursor.getColumnIndex("BookId")));
                             lendRead.setNumber(cursor.getString(cursor.getColumnIndex("Number")));
                             lendRead.setLoadTime(cursor.getString(cursor.getColumnIndex("LoadTime")));
@@ -125,6 +126,7 @@ public class LendBookHistryActivity extends Activity implements AdapterView.OnIt
                                     Book book = new Book();
                                     String bookid = cursorbook.getString(cursorbook.getColumnIndex("BookId"));
                                     if (bookid.equals(lendRead.getBookId())) {
+                                        book.setLendId(lendRead.getLendId());
                                         book.setBookId(cursorbook.getString(cursorbook.getColumnIndex("BookId")));
                                         book.setBookName(cursorbook.getString(cursorbook.getColumnIndex("BookName")));
                                         book.setBookType(cursorbook.getString(cursorbook.getColumnIndex("BookType")));
@@ -163,5 +165,6 @@ public class LendBookHistryActivity extends Activity implements AdapterView.OnIt
         String bookJS=gson.toJson(book);
         intent.putExtra("bookInfo",bookJS);
         startActivity(intent);
+        finish();
     }
 }

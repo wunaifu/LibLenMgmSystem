@@ -15,12 +15,12 @@
             android:layout_width="60dp"
             android:layout_height="25dp"
             android:layout_gravity="center_vertical"
-            android:id="@+id/img_nowlendhistry_back"
+            android:id="@+id/img_lendbookhistry_back"
             android:src="@drawable/back01"/>
         <TextView
-            android:text="当前借阅情况"
+            android:text="我的借阅历史"
             android:textSize="20sp"
-            android:id="@+id/tv_booklist_list"
+            android:id="@+id/tv_lendbooklist_list"
             android:textColor="#ffffff"
             android:layout_gravity="center_vertical"
             android:layout_centerHorizontal="true"
@@ -32,22 +32,13 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"/>
     </LinearLayout>
-    <TextView
-        android:id="@+id/tv_booklist_hint"
-        android:layout_marginTop="0dp"
-        android:text="请选择以下想要还书的借阅项"
-        android:textColor="@color/gray"
-        android:textSize="14sp"
-        android:layout_width="match_parent"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:layout_height="17dp" />
+
     <ListView
         android:dividerHeight="3dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/lv_nowlendhistry_list"/>
+        android:id="@+id/lv_lendbookhistry_list"/>
 
 </LinearLayout>

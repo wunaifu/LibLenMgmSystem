@@ -5,6 +5,7 @@ package com.zhuolang.main.model;
  */
 public class Book {
 
+    private String lendId;
     private String bookId;
     private String bookName;
     private String bookType;
@@ -16,6 +17,15 @@ public class Book {
     private String bookNumber;
     private String bookLoanable;
     private String bookConten;
+
+    public String getLendId() {
+        return lendId;
+    }
+
+    public void setLendId(String lendId) {
+        this.lendId = lendId;
+    }
+
     public String getBookId() {
         return bookId;
     }
@@ -107,7 +117,8 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "bookId='" + bookId + '\'' +
+                "lendId='" + lendId + '\'' +
+                ", bookId='" + bookId + '\'' +
                 ", bookName='" + bookName + '\'' +
                 ", bookType='" + bookType + '\'' +
                 ", bookAuthor='" + bookAuthor + '\'' +

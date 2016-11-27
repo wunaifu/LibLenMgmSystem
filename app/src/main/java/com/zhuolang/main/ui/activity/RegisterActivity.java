@@ -124,7 +124,7 @@ public class RegisterActivity extends Activity {
 
                         ContentValues valuesBook2 = new ContentValues();
                         valuesBook2.put("BookId","AK0003");
-                        valuesBook2.put("BookName","数据库系统概论(第6版)");
+                        valuesBook2.put("BookName","数据库");
                         valuesBook2.put("BookType","教材");
                         valuesBook2.put("BookAuthor","王珊");
                         valuesBook2.put("BookPublisher","高等教育出版社");

@@ -97,14 +97,16 @@ public class NowLendBookHistryActivity extends Activity implements AdapterView.O
                 } else {
                     //遍历Cursor对象，取出数据
                     Cursor cursorbook = db.query("book_tab", null, null, null, null, null, null);
-                    Log.d("testrun", "Cursor cursorbook = db.query(\"book_tab\", null, null, null, null, null, null);");
+//                    Log.d("testrun", "Cursor cursorbook = db.query(\"book_tab\", null, null, null, null, null, null);");
                     do {
                         NowLend nowLend = new NowLend();
                         LendRead lendRead = new LendRead();
                         lendRead.setUserId(cursor.getString(cursor.getColumnIndex("UserId")));
                         lendRead.setDays(cursor.getString(cursor.getColumnIndex("Days")));
                         if (lendRead.getUserId().equals(userId)&&lendRead.getDays().equals("false")) {
+                            lendRead.setLendId(cursor.getString(cursor.getColumnIndex("LendId")));
                             lendRead.setBookId(cursor.getString(cursor.getColumnIndex("BookId")));
+                            Log.d("testrun", "NowLendBookHistryActivity \n lendRead.getLendId()" + lendRead.getLendId()+"   lendRead.getBookId()"+lendRead.getBookId());
                             lendRead.setNumber(cursor.getString(cursor.getColumnIndex("Number")));
                             lendRead.setLoadTime(cursor.getString(cursor.getColumnIndex("LoadTime")));
                             lendRead.setReturnTime(cursor.getString(cursor.getColumnIndex("ReturnTime")));
@@ -116,8 +118,10 @@ public class NowLendBookHistryActivity extends Activity implements AdapterView.O
                                 do {
                                     Book book = new Book();
                                     String bookid = cursorbook.getString(cursorbook.getColumnIndex("BookId"));
+                                    Log.d("testrun", "bookid" + bookid);
                                     if (bookid.equals(lendRead.getBookId())) {
-                                        book.setBookId(cursorbook.getString(cursorbook.getColumnIndex("BookId")));
+                                        book.setLendId(lendRead.getLendId());
+                                        book.setBookId(bookid);
                                         book.setBookName(cursorbook.getString(cursorbook.getColumnIndex("BookName")));
                                         book.setBookType(cursorbook.getString(cursorbook.getColumnIndex("BookType")));
                                         book.setBookAuthor(cursorbook.getString(cursorbook.getColumnIndex("BookAuthor")));
@@ -149,12 +153,13 @@ public class NowLendBookHistryActivity extends Activity implements AdapterView.O
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent();
-        intent.setClass(NowLendBookHistryActivity.this, BookListDetailActivity.class);
+        intent.setClass(NowLendBookHistryActivity.this, NowLendBookHistryDetailActivity.class);
         Book book = new Book();
         book = nowLendList.get(position).getBook();
         Gson gson = new Gson();
         String bookJS=gson.toJson(book);
-        intent.putExtra("bookInfo",bookJS);
+        intent.putExtra("nowLendBookInfo",bookJS);
         startActivity(intent);
+        finish();
     }
 }

@@ -91,8 +91,6 @@ public class LendBookListDetailActivity extends Activity {
         if (userType==1){
             tv_lend.setVisibility(View.INVISIBLE);
         }
-    }
-    private void initModel(){
         tv_bookId.setText("  编号:"+book.getBookId());
         tv_bookName.setText(book.getBookName());
         tv_bookType.setText(book.getBookType());
@@ -104,7 +102,8 @@ public class LendBookListDetailActivity extends Activity {
         tv_bookNumber.setText(book.getBookNumber());
         tv_bookLoanable.setText(book.getBookLoanable());
         tv_bookContent.setText("\t\t内容简介：" + book.getBookConten());
-
+    }
+    private void initModel(){
         tv_lend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,6 +149,7 @@ public class LendBookListDetailActivity extends Activity {
                                         Date date = new Date();
                                         //开始组装数据
                                         valuesLend.put("BookId", book.getBookId());
+                                        Log.d("testrun", "LendBookListdeActivity book.getBookId()" + book.getBookId());
                                         valuesLend.put("UserId", userId);
                                         valuesLend.put("LoadTime", TimeUtil.dateToStrNoTime(date));
 //                                        valuesLend.put("LoadTime", "2016-11-22");
@@ -190,8 +190,7 @@ public class LendBookListDetailActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(LendBookListDetailActivity.this, MainActivity.class);
-                intent.putExtra("Flagf", "true");
+                intent.setClass(LendBookListDetailActivity.this, BookListActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -202,8 +201,7 @@ public class LendBookListDetailActivity extends Activity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             Intent intent = new Intent();
-            intent.setClass(LendBookListDetailActivity.this, MainActivity.class);
-            intent.putExtra("Flagf", "true");
+            intent.setClass(LendBookListDetailActivity.this, BookListActivity.class);
             startActivity(intent);
             finish();
             return true;

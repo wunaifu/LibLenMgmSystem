@@ -37,7 +37,7 @@
         <activity android:name=".ui.activity.LendBookListDetailActivity"></activity>
         <activity android:name=".ui.activity.NowLendBookHistryActivity"></activity>
         <activity android:name=".ui.activity.LendBookHistryActivity"></activity>
-
+        <activity android:name=".ui.activity.NowLendBookHistryDetailActivity"></activity>
 
     </application>
 

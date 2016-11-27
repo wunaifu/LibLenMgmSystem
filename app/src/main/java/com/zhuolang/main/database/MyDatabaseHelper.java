@@ -35,6 +35,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
             +"BookContent varchar(65))";
 
     public static final String CREATE_LENDREAD="create table lendread_tab("
+            +"LendId integer primary key autoincrement,"
             +"BookId varchar(20),"
             +"UserId varchar(20),"
             +"LoadTime Date,"
