@@ -66,7 +66,7 @@ public class BookListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //判断布局有没有填充过，例如一个listview有多个item，只需要在第一个item的时候创建，后面的可以使用已经创建的了，可以省时间和空间
-        if (convertView == null) {
+//        if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_booklist, null);
             //第一次创建这个布局的话就寻找控件，记得是基于这个converView布局寻找
             holder.tv_num = (TextView) convertView.findViewById(R.id.tv_booklistitem_num);
@@ -76,16 +76,21 @@ public class BookListAdapter extends BaseAdapter {
             holder.tv_bookAddress = (TextView) convertView.findViewById(R.id.tv_booklistitem_address);
             holder.tv_bookPublisher = (TextView) convertView.findViewById(R.id.tv_booklistitem_publisher);
             //第一次填充布局就缓存控件
-            convertView.setTag(holder);
+//            convertView.setTag(holder);
+//        } else {
+//            holder = (ViewHolder) convertView.getTag();
+//        }
+        if (list.size() <= 0) {
+
         } else {
-            holder = (ViewHolder) convertView.getTag();
+            holder.tv_num.setText((position+1)+"");
+            holder.tv_bookName.setText(list.get(position).getBookName());
+            holder.tv_bookAmout.setText("可借："+list.get(position).getBookLoanable());
+            holder.tv_bookAuthor.setText("作者："+list.get(position).getBookAuthor());
+            holder.tv_bookAddress.setText("书架号："+list.get(position).getBookAddress());
+            holder.tv_bookPublisher.setText("出版社："+list.get(position).getBookPublisher());
         }
-        holder.tv_num.setText((position+1)+"");
-        holder.tv_bookName.setText(list.get(position).getBookName());
-        holder.tv_bookAmout.setText("可借："+list.get(position).getBookLoanable());
-        holder.tv_bookAuthor.setText("作者："+list.get(position).getBookAuthor());
-        holder.tv_bookAddress.setText("书架号："+list.get(position).getBookAddress());
-        holder.tv_bookPublisher.setText("出版社："+list.get(position).getBookPublisher());
+
         return convertView;
     }
 

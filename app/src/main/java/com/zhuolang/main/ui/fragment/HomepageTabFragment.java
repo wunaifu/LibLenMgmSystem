@@ -16,6 +16,8 @@ import com.zhuolang.main.ui.activity.BookListActivity;
 import com.zhuolang.main.ui.activity.LendBookHistryActivity;
 import com.zhuolang.main.ui.activity.NowLendBookHistryActivity;
 import com.zhuolang.main.ui.activity.UpdateBookActivity;
+import com.zhuolang.main.ui.activity.UpdateNowLendHistryActivity;
+import com.zhuolang.main.ui.activity.UserNowLendBookHistryActivity;
 import com.zhuolang.main.ui.activity.UserinfoActivity;
 import com.zhuolang.main.utils.SharedPrefsUtil;
 
@@ -87,35 +89,33 @@ public class HomepageTabFragment extends Fragment implements View.OnClickListene
                 Intent intent = new Intent();
                 if (userType==1){
                     intent.setClass(getActivity(), UpdateBookActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
                 }else {
                     intent.setClass(getActivity(), UserinfoActivity.class);
-                    startActivity(intent);
                 }
+                getActivity().startActivity(intent);
                 break;
             case R.id.image_homepage_allbook:
                 Intent intent3 = new Intent();
                 intent3.setClass(getActivity(), BookListActivity.class);
-                startActivity(intent3);
+                getActivity().startActivity(intent3);
                 break;
             case R.id.image_homepage_lendhistry:
                 Intent intent1 = new Intent();
                 if (userType==1){
-
+                    intent1.setClass(getActivity(), UpdateNowLendHistryActivity.class);
                 }else {
                     intent1.setClass(getActivity(), LendBookHistryActivity.class);
-                    startActivity(intent1);
                 }
+                getActivity().startActivity(intent1);
                 break;
             case R.id.iv_homepage_nowlend:
                 Intent intent2 = new Intent();
-                if (userType==1){
-
+                if (userType==1) {
+                    intent2.setClass(getActivity(), UserNowLendBookHistryActivity.class);
                 }else {
                     intent2.setClass(getActivity(), NowLendBookHistryActivity.class);
-                    startActivity(intent2);
                 }
+                getActivity().startActivity(intent2);
                 break;
             default:
                 break;

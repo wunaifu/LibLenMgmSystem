@@ -81,6 +81,10 @@ public class DelBookListActivity extends Activity implements AdapterView.OnItemC
                         Toast.makeText(DelBookListActivity.this, "没有找到书名为\""+info+"\"的图书,请确认输入是否正确", Toast.LENGTH_LONG).show();
                     }
                     break;
+                case 5:
+                    adapter = new BookListAdapter(DelBookListActivity.this, null);
+                    listView.setAdapter(adapter);
+                    break;
                 default:
                     break;
             }
@@ -262,72 +266,82 @@ public class DelBookListActivity extends Activity implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-        int number=0;
-        int loadable=0;
-
-        final Cursor cursor = db.query("book_tab", null, null, null, null, null, null);
-        final Cursor cursorLend = db.query("lendread_tab", null, null, null, null, null, null);
-        if (!cursor.moveToFirst()) {
-            Toast.makeText(DelBookListActivity.this, "数据库中没有图书数据", Toast.LENGTH_SHORT).show();
+        if (bookList.size() <= 0) {
+            Toast.makeText(DelBookListActivity.this,"没有可用数据，请刷新",Toast.LENGTH_SHORT).show();
         } else {
-            // 1. 获取 可供借阅数量 和 馆藏数量
-            do {
-                String bookid = cursor.getString(cursor.getColumnIndex("BookId"));
-                if (bookid.equals(bookList.get(position).getBookId())) {
-                    number = cursor.getInt(cursor.getColumnIndex("BookNumber"));
-                    loadable = cursor.getInt(cursor.getColumnIndex("BookLoanable"));
-                    break;
-                }
-            } while (cursor.moveToNext());
-            cursor.close();
-            if (number==loadable){
+            int number = 0;
+            int loadable = 0;
 
-                AlertDialog.Builder dialog1 = new AlertDialog.Builder(DelBookListActivity.this);
-                dialog1.setTitle("温馨提示");
-                dialog1.setMessage("是否删除编号为\"" + bookList.get(position).getBookId() + "\"的\"" + bookList.get(position).getBookName() + "\"图书！");
-                dialog1.setCancelable(false);
-                dialog1.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        boolean flag = false;
-                        if (!cursorLend.moveToFirst()) {
+            final Cursor cursor = db.query("book_tab", null, null, null, null, null, null);
+            final Cursor cursorLend = db.query("lendread_tab", null, null, null, null, null, null);
+            if (!cursor.moveToFirst()) {
+                Toast.makeText(DelBookListActivity.this, "数据库中没有图书数据", Toast.LENGTH_SHORT).show();
+            } else {
+                // 1. 获取 可供借阅数量 和 馆藏数量
+                do {
+                    String bookid = cursor.getString(cursor.getColumnIndex("BookId"));
+                    if (bookid.equals(bookList.get(position).getBookId())) {
+                        number = cursor.getInt(cursor.getColumnIndex("BookNumber"));
+                        loadable = cursor.getInt(cursor.getColumnIndex("BookLoanable"));
+                        break;
+                    }
+                } while (cursor.moveToNext());
+                cursor.close();
+                if (number <= loadable) {
 
-                        }else {
-                            do {
-                                String bookid = cursorLend.getString(cursorLend.getColumnIndex("BookId"));
-                                if (bookid.equals(bookList.get(position).getBookId())) {
-                                    flag=true;
-                                    Toast.makeText(DelBookListActivity.this, "\""+bookList.get(position).getBookName() +
-                                            "\"图书曾被借阅过，不删除其在数据库中的数据，只重置其馆藏数量为0！", Toast.LENGTH_SHORT).show();
-                                    break;
+                    AlertDialog.Builder dialog1 = new AlertDialog.Builder(DelBookListActivity.this);
+                    dialog1.setTitle("温馨提示");
+                    dialog1.setMessage("是否删除编号为\"" + bookList.get(position).getBookId() + "\"的\"" + bookList.get(position).getBookName() + "\"图书！");
+                    dialog1.setCancelable(false);
+                    dialog1.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            boolean flag = false;
+                            if (!cursorLend.moveToFirst()) {
+
+                            } else {
+                                do {
+                                    String bookid = cursorLend.getString(cursorLend.getColumnIndex("BookId"));
+                                    if (bookid.equals(bookList.get(position).getBookId())) {
+                                        flag = true;
+                                        Toast.makeText(DelBookListActivity.this, "\"" + bookList.get(position).getBookName() +
+                                                "\"图书曾被借阅过，不删除其在数据库中的数据，只重置其馆藏数量为0！", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    }
+                                } while (cursorLend.moveToNext());
+                            }
+                            String[] account = new String[1];
+                            account[0] = bookList.get(position).getBookId();
+                            if (flag == true) {
+                                ContentValues values = new ContentValues();
+                                values.put("BookNumber", 0);
+                                values.put("BookLoanable", 0);
+                                db.update("book_tab", values, "BookId = ?", account);
+                            } else {
+                                db.delete("book_tab", "BookId = ?", account);
+                                Toast.makeText(DelBookListActivity.this, "成功删除编号为\"" + bookList.get(position).getBookId()
+                                        + "\"的\"" + bookList.get(position).getBookName() + "\"图书！", Toast.LENGTH_SHORT).show();
+                                if (bookList.size() <= 1) {
+                                    Message message = new Message();
+                                    message.what = 5;
+                                    message.obj = "nothing";
+                                    handler.sendMessage(message);
                                 }
-                            } while (cursorLend.moveToNext());
-                        }
-                        String[] account = new String[1];
-                        account[0] = bookList.get(position).getBookId();
-                        if (flag == true) {
-                            ContentValues values = new ContentValues();
-                            values.put("BookNumber",0);
-                            values.put("BookLoanable",0);
-                            db.update("book_tab", values, "BookId = ?", account);
-                        }else {
-                            db.delete("book_tab", "BookId = ?", account);
-                            Toast.makeText(DelBookListActivity.this, "成功删除编号为\"" + bookList.get(position).getBookId()
-                                    + "\"的\"" + bookList.get(position).getBookName() + "\"图书！", Toast.LENGTH_SHORT).show();
-                        }
-                        initMotion();
+                            }
+                            initMotion();
 
-                    }
-                });
-                dialog1.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    dialog1.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                });
-                dialog1.show();
-            }else {
-                Toast.makeText(DelBookListActivity.this, "\""+bookList.get(position).getBookName()+"\"图书已借出，不能删除", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    dialog1.show();
+                } else {
+                    Toast.makeText(DelBookListActivity.this, "\"" + bookList.get(position).getBookName() + "\"图书已借出，不能删除", Toast.LENGTH_SHORT).show();
+                }
             }
         }
 

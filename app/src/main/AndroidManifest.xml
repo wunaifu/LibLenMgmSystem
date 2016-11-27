@@ -38,6 +38,10 @@
         <activity android:name=".ui.activity.NowLendBookHistryActivity"></activity>
         <activity android:name=".ui.activity.LendBookHistryActivity"></activity>
         <activity android:name=".ui.activity.NowLendBookHistryDetailActivity"></activity>
+        <activity android:name=".ui.activity.UserNowLendBookHistryActivity" ></activity>
+        <activity android:name=".ui.activity.NowLendUserinfoActivity"></activity>
+        <activity android:name=".ui.activity.UpdateLendInfoActivity"></activity>
+        <activity android:name=".ui.activity.UpdateNowLendHistryActivity"></activity>
 
     </application>
 

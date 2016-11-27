@@ -110,16 +110,16 @@ public class RegisterActivity extends Activity {
 
                         ContentValues valuesBook1 = new ContentValues();
                         valuesBook1.put("BookId","AK0002");
-                        valuesBook1.put("BookName","数据库系统概论(第5版)");
+                        valuesBook1.put("BookName","编译原理");
                         valuesBook1.put("BookType", "教材");
-                        valuesBook1.put("BookAuthor","王珊");
+                        valuesBook1.put("BookAuthor","王百珊");
                         valuesBook1.put("BookPublisher","高等教育出版社");
                         valuesBook1.put("BookPublyear","2013");
                         valuesBook1.put("BookPrice","25");
                         valuesBook1.put("BookAddress","103");
                         valuesBook1.put("BookNumber",3);
                         valuesBook1.put("BookLoanable",3);
-                        valuesBook1.put("BookContent","数据库系统概论，数据库系统概论(第5版)");
+                        valuesBook1.put("BookContent","编译原理，数据库系统概论(第5版)");
                         db.insert("book_tab", null, valuesBook1);
 
                         ContentValues valuesBook2 = new ContentValues();

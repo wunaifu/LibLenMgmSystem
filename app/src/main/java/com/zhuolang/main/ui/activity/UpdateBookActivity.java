@@ -57,27 +57,13 @@ public class UpdateBookActivity extends Activity implements View.OnClickListener
                 this.startActivity(intent2);
                 break;
             case R.id.image_updatebook_back:
-                Intent intent3 = new Intent();
-                intent3.setClass(UpdateBookActivity.this, MainActivity.class);
-                intent3.putExtra("Flagf", "false");
-                startActivity(intent3);
+
                 finish();
                 break;
             default:
                 break;
         }
     }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            Intent intent = new Intent();
-            intent.setClass(UpdateBookActivity.this, MainActivity.class);
-            intent.putExtra("Flagf", "false");
-            startActivity(intent);
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+
 
 }

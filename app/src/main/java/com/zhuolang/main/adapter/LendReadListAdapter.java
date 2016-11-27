@@ -69,7 +69,7 @@ public class LendReadListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //判断布局有没有填充过，例如一个listview有多个item，只需要在第一个item的时候创建，后面的可以使用已经创建的了，可以省时间和空间
-        if (convertView == null) {
+//        if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_lendreadlist, null);
             //第一次创建这个布局的话就寻找控件，记得是基于这个converView布局寻找
             holder.tv_num = (TextView) convertView.findViewById(R.id.tv_item_lendreadlist_num);
@@ -81,10 +81,10 @@ public class LendReadListAdapter extends BaseAdapter {
             holder.tv_bookPublisher = (TextView) convertView.findViewById(R.id.tv_item_lendreadlist_publisher);
             holder.tv_number = (TextView) convertView.findViewById(R.id.tv_item_lendreadlist_number);
             //第一次填充布局就缓存控件
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
+//            convertView.setTag(holder);
+//        } else {
+//            holder = (ViewHolder) convertView.getTag();
+//        }
 
         String lendTime=list.get(position).getLendRead().getLoadTime();
         Date date1 = new Date();

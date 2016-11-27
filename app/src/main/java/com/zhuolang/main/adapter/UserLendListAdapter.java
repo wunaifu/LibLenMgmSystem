@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.zhuolang.main.R;
 import com.zhuolang.main.model.NowLend;
+import com.zhuolang.main.model.UserNowLend;
 import com.zhuolang.main.utils.TimeUtil;
 
 import java.util.Date;
@@ -18,15 +19,15 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/11/25.
  */
-public class LendHistryAdapter extends BaseAdapter {
+public class UserLendListAdapter extends BaseAdapter {
     private Context context;
-    private List<NowLend> list;
+    private List<UserNowLend> list;
 
     private LayoutInflater inflater;
     private ViewHolder holder;
 
     //初始化把上下文，数据列表传递过来
-    public LendHistryAdapter(Context context, List<NowLend> list) {
+    public UserLendListAdapter(Context context, List<UserNowLend> list) {
         this.context = context;
         this.list = list;
         //初始化开始初始化布局填充器
@@ -67,16 +68,15 @@ public class LendHistryAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         //判断布局有没有填充过，例如一个listview有多个item，只需要在第一个item的时候创建，后面的可以使用已经创建的了，可以省时间和空间
 //        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.item_lendreadlist, null);
+            convertView = inflater.inflate(R.layout.item_userlend_list, null);
             //第一次创建这个布局的话就寻找控件，记得是基于这个converView布局寻找
-            holder.tv_num = (TextView) convertView.findViewById(R.id.tv_item_lendreadlist_num);
-            holder.tv_days = (TextView) convertView.findViewById(R.id.tv_item_lendreadlist_days);
-            holder.tv_bookName = (TextView) convertView.findViewById(R.id.tv_item_lendreadlist_bookname);
-            holder.tv_lendTime = (TextView) convertView.findViewById(R.id.tv_item_lendreadlist_lendtime);
-            holder.tv_returnTime = (TextView) convertView.findViewById(R.id.tv_item_lendreadlist_returntime);
-            holder.tv_bookAuthor = (TextView) convertView.findViewById(R.id.tv_item_lendreadlist_author);
-            holder.tv_bookPublisher = (TextView) convertView.findViewById(R.id.tv_item_lendreadlist_publisher);
-            holder.tv_number = (TextView) convertView.findViewById(R.id.tv_item_lendreadlist_number);
+            holder.tv_num = (TextView) convertView.findViewById(R.id.tv_item_userlend_num);
+            holder.tv_userName = (TextView) convertView.findViewById(R.id.tv_item_userlend_username);
+            holder.tv_bookName = (TextView) convertView.findViewById(R.id.tv_item_userlend_bookname);
+            holder.tv_lendTime = (TextView) convertView.findViewById(R.id.tv_item_userlend_lendtime);
+            holder.tv_returnTime = (TextView) convertView.findViewById(R.id.tv_item_userlend_returntime);
+            holder.tv_days = (TextView) convertView.findViewById(R.id.tv_item_userlend_days);
+            holder.tv_bookAmount = (TextView) convertView.findViewById(R.id.tv_item_userlend_bookamcount);
             //第一次填充布局就缓存控件
 //            convertView.setTag(holder);
 //        } else {
@@ -84,31 +84,30 @@ public class LendHistryAdapter extends BaseAdapter {
 //        }
 
         String lendTime=list.get(position).getLendRead().getLoadTime();
-        String returnTime=list.get(position).getLendRead().getReturnTime();
-        int days = TimeUtil.oleTimeTonowTime(lendTime, returnTime);
+        Date date1 = new Date();
 
+        int days = TimeUtil.oleTimeTonowTime(lendTime, TimeUtil.dateToStrNoTime(date1));
+        Log.d("testrun", "TimeUtil.dateToStrNoTime(date1)" + TimeUtil.dateToStrNoTime(date1));
         holder.tv_num.setText((position+1)+"");
-        holder.tv_bookName.setText(list.get(position).getBook().getBookName());
-        holder.tv_days.setText("借阅天数："+days);
+        holder.tv_userName.setText(list.get(position).getUserName());
+        holder.tv_bookName.setText(list.get(position).getBookName());
+        holder.tv_days.setText("已借天数："+days);
         holder.tv_lendTime.setText("借出日期："+lendTime);
-        holder.tv_returnTime.setText("归还日期："+returnTime);
-        holder.tv_bookAuthor.setText("作者："+list.get(position).getBook().getBookAuthor());
-        holder.tv_bookPublisher.setText("出版社："+list.get(position).getBook().getBookPublisher());
-        holder.tv_number.setText("借阅本数："+list.get(position).getLendRead().getNumber()+"本");
-        holder.tv_num.setText((position+1)+"");
+        holder.tv_returnTime.setText("最迟还期："+TimeUtil.oleTimeAddDay(lendTime,60));
+        holder.tv_bookAmount.setText("已借："+list.get(position).getLendRead().getNumber()+"本");
+
         return convertView;
     }
 
 
     private class ViewHolder {
         TextView tv_num;
-        TextView tv_days;
+        TextView tv_userName;
         TextView tv_bookName;
         TextView tv_lendTime;
         TextView tv_returnTime;
-        TextView tv_bookAuthor;
-        TextView tv_bookPublisher;
-        TextView tv_number;
+        TextView tv_days;
+        TextView tv_bookAmount;
     }
 
 }
