@@ -1,6 +1,8 @@
-package com.zhuolang.main.ui.fragment;
+package com.zhuolang.main.ui.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,11 +11,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,68 +26,94 @@ import com.zhuolang.main.adapter.BookListAdapter;
 import com.zhuolang.main.common.APPConfig;
 import com.zhuolang.main.database.MyDatabaseHelper;
 import com.zhuolang.main.model.Book;
-import com.zhuolang.main.ui.activity.BookListDetailActivity;
-import com.zhuolang.main.ui.activity.LendBookListDetailActivity;
 import com.zhuolang.main.utils.SharedPrefsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by wnf on 2016/10/29.
- * “分享圈”界面的fragment
+ * Created by wnf on 2016/11/25.
  */
-
-public class ShareTabFragment extends Fragment implements AdapterView.OnItemClickListener{
-
-    private View view = null;
+public class DelBookListActivity extends Activity implements AdapterView.OnItemClickListener {
     private ListView listView;
+    private ImageView img_back;
     private EditText et_info;
     private TextView tv_byname;
     private TextView tv_byid;
-    private TextView tv_hint;
     private String info;
-    private int userType;
     private MyDatabaseHelper dbHelper;
     private SQLiteDatabase db;
     private BookListAdapter adapter;
+    private List<Book> books = new ArrayList<>();
     private List<Book> bookList = new ArrayList<>();
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-    }
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+            info = et_info.getText().toString().trim();
+            switch (msg.what){
+                case 0:
+                    if (msg.obj.equals("true")) {
+                        adapter = new BookListAdapter(DelBookListActivity.this, bookList);
+                        listView.setAdapter(adapter);
+                    }else {
+                        Toast.makeText(DelBookListActivity.this, "没有找到图书，请确认", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case 1:
+                    if (msg.obj.equals("true")) {
+                        Toast.makeText(DelBookListActivity.this, "已找到编号为\""+info+"\"的图书", Toast.LENGTH_LONG).show();
+                        adapter = new BookListAdapter(DelBookListActivity.this, bookList);
+                        listView.setAdapter(adapter);
+                    }else {
+                        initMotion();
+                        Toast.makeText(DelBookListActivity.this, "没有找到编号为\""+info+"\"的图书,请确认输入是否正确", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case 2:
+                    if (msg.obj.equals("true")) {
+                        Toast.makeText(DelBookListActivity.this, "已找到书名为\""+info+"\"的图书", Toast.LENGTH_LONG).show();
+                        adapter = new BookListAdapter(DelBookListActivity.this, bookList);
+                        listView.setAdapter(adapter);
+                    }else {
+                        initMotion();
+                        Toast.makeText(DelBookListActivity.this, "没有找到书名为\""+info+"\"的图书,请确认输入是否正确", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                default:
+                    break;
+            }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
-
-        view=new View(getActivity());
-
-        view = inflater.inflate(R.layout.share, container, false);
-        Log.d("activityID", "这个是shareTabFragment----------:" + this.toString());
-        dbHelper = new MyDatabaseHelper(getContext(), "LibrarySystem.db", null, 1);
-        db = dbHelper.getWritableDatabase();
-
-        userType = SharedPrefsUtil.getValue(getContext(), APPConfig.USERTYPE, 0);
-
-        listView = (ListView) view.findViewById(R.id.lv_share_list);
-        et_info = (EditText) view.findViewById(R.id.et_share_info);
-        tv_byname = (TextView) view.findViewById(R.id.tv_share_name);
-        tv_byid = (TextView) view.findViewById(R.id.tv_share_id);
-        tv_hint = (TextView) view.findViewById(R.id.tv_share_hint);
-        if (userType==1){
-            tv_hint.setVisibility(View.GONE);
         }
+    };
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_delbooklist);
+        dbHelper = new MyDatabaseHelper(this, "LibrarySystem.db", null, 1);
+        db = dbHelper.getWritableDatabase();
+        listView = (ListView) findViewById(R.id.lv_delbooklist_list);
+        img_back = (ImageView) findViewById(R.id.img_delbooklist_back);
+        et_info = (EditText) findViewById(R.id.et_delbooklist_info);
+        tv_byname = (TextView) findViewById(R.id.tv_delbooklist_name);
+        tv_byid = (TextView) findViewById(R.id.tv_delbooklist_id);
         listView.setOnItemClickListener(this);
 
         initMotion();
-
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         tv_byname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 info = et_info.getText().toString().trim();
                 if (info.equals("")){
-                    Toast.makeText(getActivity(), "信息不能为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DelBookListActivity.this, "信息不能为空", Toast.LENGTH_SHORT).show();
                 }else {
                     new Thread(new Runnable() {
                         @Override
@@ -141,7 +166,7 @@ public class ShareTabFragment extends Fragment implements AdapterView.OnItemClic
             public void onClick(View v) {
                 info = et_info.getText().toString().trim();
                 if (info.equals("")){
-                    Toast.makeText(getActivity(), "信息不能为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DelBookListActivity.this, "信息不能为空", Toast.LENGTH_SHORT).show();
                 }else {
                     new Thread(new Runnable() {
                         @Override
@@ -187,9 +212,6 @@ public class ShareTabFragment extends Fragment implements AdapterView.OnItemClic
 
             }
         });
-
-        return view;
-
     }
 
     public void initMotion() {
@@ -228,6 +250,8 @@ public class ShareTabFragment extends Fragment implements AdapterView.OnItemClic
                         }
                     } while (cursor.moveToNext());
                     cursor.close();
+//                    adapter = new BookListAdapter(BookListActivity.this, bookList);
+//                    listView.setAdapter(adapter);
 
                     message.obj = flag;
                     handler.sendMessage(message);
@@ -238,56 +262,76 @@ public class ShareTabFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-        Intent intent = new Intent();
-        intent.setClass(getContext(), LendBookListDetailActivity.class);
-        Book book = new Book();
-        book = bookList.get(position);
-        Gson gson = new Gson();
-        String bookJS=gson.toJson(book);
-        intent.putExtra("bookInfo",bookJS);
-        startActivity(intent);
-        getActivity().finish();
-    }
+        int number=0;
+        int loadable=0;
 
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-//            super.handleMessage(msg);
-            info = et_info.getText().toString().trim();
-            switch (msg.what){
-                case 0:
-                    if (msg.obj.equals("true")) {
-                        adapter = new BookListAdapter(getContext(), bookList);
-                        listView.setAdapter(adapter);
-                    }else {
-                        Toast.makeText(getContext(), "没有找到图书，请确认", Toast.LENGTH_SHORT).show();
-                    }
+        final Cursor cursor = db.query("book_tab", null, null, null, null, null, null);
+        final Cursor cursorLend = db.query("lendread_tab", null, null, null, null, null, null);
+        if (!cursor.moveToFirst()) {
+            Toast.makeText(DelBookListActivity.this, "数据库中没有图书数据", Toast.LENGTH_SHORT).show();
+        } else {
+            // 1. 获取 可供借阅数量 和 馆藏数量
+            do {
+                String bookid = cursor.getString(cursor.getColumnIndex("BookId"));
+                if (bookid.equals(bookList.get(position).getBookId())) {
+                    number = cursor.getInt(cursor.getColumnIndex("BookNumber"));
+                    loadable = cursor.getInt(cursor.getColumnIndex("BookLoanable"));
                     break;
-                case 1:
-                    if (msg.obj.equals("true")) {
-                        Toast.makeText(getContext(), "已找到编号为\""+info+"\"的图书", Toast.LENGTH_LONG).show();
-                        adapter = new BookListAdapter(getContext(), bookList);
-                        listView.setAdapter(adapter);
-                    }else {
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+            if (number==loadable){
+
+                AlertDialog.Builder dialog1 = new AlertDialog.Builder(DelBookListActivity.this);
+                dialog1.setTitle("温馨提示");
+                dialog1.setMessage("是否删除编号为\"" + bookList.get(position).getBookId() + "\"的\"" + bookList.get(position).getBookName() + "\"图书！");
+                dialog1.setCancelable(false);
+                dialog1.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        boolean flag = false;
+                        if (!cursorLend.moveToFirst()) {
+
+                        }else {
+                            do {
+                                String bookid = cursorLend.getString(cursorLend.getColumnIndex("BookId"));
+                                if (bookid.equals(bookList.get(position).getBookId())) {
+                                    flag=true;
+                                    Toast.makeText(DelBookListActivity.this, "\""+bookList.get(position).getBookName() +
+                                            "\"图书曾被借阅过，不删除其在数据库中的数据，只重置其馆藏数量为0！", Toast.LENGTH_SHORT).show();
+                                    break;
+                                }
+                            } while (cursorLend.moveToNext());
+                        }
+                        String[] account = new String[1];
+                        account[0] = bookList.get(position).getBookId();
+                        if (flag == true) {
+                            ContentValues values = new ContentValues();
+                            values.put("BookNumber",0);
+                            values.put("BookLoanable",0);
+                            db.update("book_tab", values, "BookId = ?", account);
+                        }else {
+                            db.delete("book_tab", "BookId = ?", account);
+                            Toast.makeText(DelBookListActivity.this, "成功删除编号为\"" + bookList.get(position).getBookId()
+                                    + "\"的\"" + bookList.get(position).getBookName() + "\"图书！", Toast.LENGTH_SHORT).show();
+                        }
                         initMotion();
-                        Toast.makeText(getContext(), "没有找到编号为\""+info+"\"的图书,请确认输入是否正确", Toast.LENGTH_LONG).show();
+
                     }
-                    break;
-                case 2:
-                    if (msg.obj.equals("true")) {
-                        Toast.makeText(getContext(), "已找到书名为\""+info+"\"的图书", Toast.LENGTH_LONG).show();
-                        adapter = new BookListAdapter(getContext(), bookList);
-                        listView.setAdapter(adapter);
-                    }else {
-                        initMotion();
-                        Toast.makeText(getContext(), "没有找到书名为\""+info+"\"的图书,请确认输入是否正确", Toast.LENGTH_LONG).show();
+                });
+                dialog1.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
                     }
-                    break;
-                default:
-                    break;
+                });
+                dialog1.show();
+            }else {
+                Toast.makeText(DelBookListActivity.this, "\""+bookList.get(position).getBookName()+"\"图书已借出，不能删除", Toast.LENGTH_SHORT).show();
             }
-
         }
-    };
 
+
+
+    }
 }

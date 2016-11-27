@@ -23,19 +23,24 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
 
     public static final String CREATE_BOOK="create table book_tab("
             +"BookId varchar(20) primary key,"
-            +"BookName varchar(20),"
-            +"BookType int,"
-            +"BookAuthor varchar(15),"
+            +"BookName varchar(30),"
+            +"BookType varchar(20),"
+            +"BookAuthor varchar(20),"
             +"BookPublisher varchar(30),"
-            +"BookPrice int,"
-            +"BookNumber int)";
+            +"BookPublyear varchar(15),"
+            +"BookPrice varchar(10),"
+            +"BookAddress varchar(30),"
+            +"BookNumber int,"
+            +"BookLoanable int,"
+            +"BookContent varchar(65))";
 
     public static final String CREATE_LENDREAD="create table lendread_tab("
             +"BookId varchar(20),"
             +"UserId varchar(20),"
             +"LoadTime Date,"
             +"ReturnTime Date,"
-            +"Days int)";
+            +"Number int,"
+            +"Days varchar(6))";
 
 
 

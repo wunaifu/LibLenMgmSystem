@@ -26,6 +26,7 @@ public class StartActivity extends Activity {
                     intent.setClass(StartActivity.this, MainActivity.class);
                 else
                     intent.setClass(StartActivity.this, LoginActivity.class);
+                intent.putExtra("Flagf", "false");
                 startActivity(intent);
                 finish();
             }

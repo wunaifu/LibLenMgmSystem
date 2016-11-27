@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dee4ec"
+    android:background="#eaeaea"
     android:orientation="vertical">
 
     <LinearLayout
         android:orientation="vertical"
-        android:background="#5888e7"
+        android:background="@color/steelblue"
         android:layout_width="match_parent"
         android:layout_height="135dp">
         <ImageView
@@ -15,7 +15,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:src="@drawable/user_icon"
-            android:background="#5888e7"
             android:layout_width="70dp"
             android:layout_height="70dp" />
         <TextView

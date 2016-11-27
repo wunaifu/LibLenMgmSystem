@@ -68,7 +68,7 @@ public class UpdateUserInfoActivity extends Activity{
     private void initView() {
         dbHelper=new MyDatabaseHelper(this,"LibrarySystem.db",null,1);
         tv_account = (TextView) findViewById(R.id.tv_updateinfo_account);
-        tv_account.setText(userAccount);
+        tv_account.setText("当前账号："+userAccount);
         et_name = (EditText) findViewById(R.id.et_update_updateinfo_name);
         et_age = (EditText) findViewById(R.id.et_update_updateinfo_age);
         et_phone = (EditText) findViewById(R.id.et_updateinfo_phone);
@@ -117,7 +117,7 @@ public class UpdateUserInfoActivity extends Activity{
                 String[] account=new String[1];
                 account[0]=userAccount;
                 db.update("user_tab", values, "UserId = ?", account);
-                Toast.makeText(UpdateUserInfoActivity.this,"修改成功，返回中。。。",Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdateUserInfoActivity.this,"修改信息成功",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.setClass(UpdateUserInfoActivity.this, UserinfoActivity.class);
                 startActivity(intent);

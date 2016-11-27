@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/lendread_back01"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,9 +13,11 @@
         <ImageView
             android:layout_width="60dp"
             android:layout_height="25dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:id="@+id/img_delbooklist_back"
+            android:src="@drawable/back01"/>
         <TextView
-            android:text="检索图书信息"
+            android:text="删除图书信息"
             android:textSize="20sp"
             android:id="@+id/tv_booklist_list"
             android:textColor="#ffffff"
@@ -31,7 +32,7 @@
             android:layout_height="match_parent"/>
     </LinearLayout>
     <EditText
-        android:id="@+id/et_share_info"
+        android:id="@+id/et_delbooklist_info"
         android:hint="请输入信息"
         android:maxLength="20"
         android:textSize="18sp"
@@ -48,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp">
         <TextView
-            android:id="@+id/tv_share_id"
+            android:id="@+id/tv_delbooklist_id"
             android:textSize="20sp"
             android:text="  按编号查找  "
             android:gravity="center"
@@ -60,7 +61,7 @@
             android:layout_width="1dp"
             android:layout_height="match_parent" />
         <TextView
-            android:id="@+id/tv_share_name"
+            android:id="@+id/tv_delbooklist_name"
             android:textSize="20sp"
             android:text="  按书名查找  "
             android:gravity="center"
@@ -75,19 +76,20 @@
     <TextView
         android:id="@+id/tv_share_hint"
         android:layout_marginTop="0dp"
-        android:text="请选择以下想要借阅的图书项"
+        android:text="请选择以下想要删除的图书项"
         android:textColor="@color/gray"
         android:textSize="14sp"
         android:layout_width="match_parent"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
         android:layout_height="17dp" />
+
     <ListView
         android:dividerHeight="3dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/lv_share_list"/>
+        android:id="@+id/lv_delbooklist_list"/>
 
 </LinearLayout>

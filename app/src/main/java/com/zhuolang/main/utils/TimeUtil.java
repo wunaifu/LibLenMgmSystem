@@ -2,8 +2,11 @@ package com.zhuolang.main.utils;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class TimeUtil {
 	
@@ -107,5 +110,60 @@ public class TimeUtil {
             e.printStackTrace();
         }
         return date;
+    }
+
+    public static int oleTimeTonowTime(String str1,String str2){
+        System.out.print("开始时间:");
+
+        //"yyyyMMdd"格式 如 20131022
+        System.out.println("\n结束时间:");
+        //"yyyyMMdd"格式 如 20131022
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//输入日期的格式
+        Date date1 = null;
+        try {
+            date1 = simpleDateFormat.parse(str1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date2 = null;
+        try {
+            date2 = simpleDateFormat.parse(str2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        GregorianCalendar cal1 = new GregorianCalendar();
+        GregorianCalendar cal2 = new GregorianCalendar();
+        cal1.setTime(date1);
+        cal2.setTime(date2);
+        double dayCount = (cal2.getTimeInMillis()-cal1.getTimeInMillis())/(1000*3600*24);//从间隔毫秒变成间隔天数
+        int days=0;
+        if (dayCount%1!=0){
+            days= (int) dayCount+1;
+        }else {
+            days= (int) dayCount;
+        }
+        System.out.println("\n相差"+dayCount+"天");
+        return days;
+    }
+
+    public static String oleTimeAddDay(String str1,int days){
+        System.out.print("开始时间:");
+        String temp = "";
+        //"yyyyMMdd"格式 如 20131022
+        System.out.println("\n结束时间:");
+        //"yyyyMMdd"格式 如 20131022
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//输入日期的格式
+        Date date1 = null;
+        try {
+            date1 = simpleDateFormat.parse(str1);
+            Calendar cl = Calendar.getInstance();
+            cl.setTime(date1);
+            cl.add(Calendar.DATE,days);
+            temp = simpleDateFormat.format(cl.getTime());
+            System.out.println(temp);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return temp;
     }
 }

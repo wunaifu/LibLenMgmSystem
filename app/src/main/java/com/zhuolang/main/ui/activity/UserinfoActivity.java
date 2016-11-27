@@ -60,7 +60,7 @@ public class UserinfoActivity extends Activity implements View.OnClickListener{
         tv_acount=(TextView)findViewById(R.id.tv_userinfo_acount);
         tv_class=(TextView)findViewById(R.id.tv_userinfo_class);
         tv_name=(TextView)findViewById(R.id.tv_userinfo_name);
-        tv_phone=(TextView)findViewById(R.id.tv_userinfo_age);
+        tv_phone=(TextView)findViewById(R.id.tv_userinfo_phone);
         tv_age=(TextView)findViewById(R.id.tv_userinfo_age);
         tv_sex=(TextView)findViewById(R.id.tv_userinfo_sex);
         tv_address=(TextView)findViewById(R.id.tv_userinfo_address);

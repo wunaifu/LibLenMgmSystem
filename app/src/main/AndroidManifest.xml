@@ -27,6 +27,17 @@
         <activity android:name=".ui.activity.UpdateUserInfoActivity"></activity>
         <activity android:name=".ui.activity.SettingActivity"></activity>
         <activity android:name=".ui.activity.UpdatePswActivity"></activity>
+        <activity android:name=".ui.activity.UpdateBookActivity"></activity>
+        <activity android:name=".ui.activity.AddBookActivity"></activity>
+        <activity android:name=".ui.activity.BookListActivity"></activity>
+        <activity android:name=".ui.activity.BookListDetailActivity"></activity>
+        <activity android:name=".ui.activity.UpdateBookListActivity"></activity>
+        <activity android:name=".ui.activity.UpdateBookListUpdateActivity"></activity>
+        <activity android:name=".ui.activity.DelBookListActivity"></activity>
+        <activity android:name=".ui.activity.LendBookListDetailActivity"></activity>
+        <activity android:name=".ui.activity.NowLendBookHistryActivity"></activity>
+        <activity android:name=".ui.activity.LendBookHistryActivity"></activity>
+
 
     </application>
 

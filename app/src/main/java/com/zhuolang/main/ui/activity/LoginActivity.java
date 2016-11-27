@@ -41,6 +41,7 @@ public class LoginActivity extends Activity {
     private int type;
 
     private MyDatabaseHelper dbHelper;
+    private SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +49,11 @@ public class LoginActivity extends Activity {
 
         setContentView(R.layout.activity_login);
         dbHelper = new MyDatabaseHelper(this, "LibrarySystem.db", null, 1);
+        db=dbHelper.getWritableDatabase();
         boolean is_login = SharedPrefsUtil.getValue(this, APPConfig.IS_LOGIN, false);
         if (is_login){
             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            intent.putExtra("Flagf", "false");
             this.startActivity(intent);
             finish();
         }{
@@ -81,18 +84,21 @@ public class LoginActivity extends Activity {
                 boolean flag=false;
                 account=et_login_account.getText().toString().trim();
                 psd=et_login_psd.getText().toString().trim();
+
                 if (account.equals("") || psd.equals("")) {
                     Toast.makeText(LoginActivity.this, "账号密码不能为空！", Toast.LENGTH_SHORT).show();
                 }else{
-                    SQLiteDatabase db=dbHelper.getWritableDatabase();
                     Cursor cursor=db.query("user_tab",null,null,null,null,null,null);
-                    if (cursor.moveToFirst()){
+                    if (!cursor.moveToFirst()){
+                        Toast.makeText(LoginActivity.this,"还没有用户注册，请先注册再登陆",Toast.LENGTH_SHORT).show();
+                    }else {
                         do {
                             //遍历Cursor对象，取出数据
                             String userId=cursor.getString(cursor.getColumnIndex("UserId"));
                             String userPsw=cursor.getString(cursor.getColumnIndex("UserPassword"));
                             int userType=cursor.getInt(cursor.getColumnIndex("UserType"));
                             if (userId.equals(account)&&userPsw.equals(psd)) {
+                                //保存用户类型到本地
                                 SharedPrefsUtil.putValue(LoginActivity.this,APPConfig.USERTYPE,userType);
                                 flag=true;
                                 break;
@@ -107,11 +113,13 @@ public class LoginActivity extends Activity {
                         SharedPrefsUtil.putValue(LoginActivity.this,APPConfig.ACCOUNT,account);
                         Intent intent=new Intent();
                         intent.setClass(LoginActivity.this,MainActivity.class);
+                        intent.putExtra("Flagf", "false");
                         startActivity(intent);
                         finish();
                     }else {
                         Toast.makeText(LoginActivity.this,"账号或密码错误，请确认后输入！",Toast.LENGTH_SHORT).show();
                     }
+
                 }
             }
         });
