@@ -51,7 +51,7 @@ public class UpdateUserInfoActivity extends Activity{
     private String userAddress;
     private String userClass;
 
-    private Button bt_update;
+    private TextView tv_update;
     private MyDatabaseHelper dbHelper;
 
     @Override
@@ -76,7 +76,7 @@ public class UpdateUserInfoActivity extends Activity{
         et_sex = (EditText) findViewById(R.id.et_update_updateinfo_sex);
         et_address = (EditText) findViewById(R.id.et_update_updateinfo_address);
         imageViewBack = (ImageView) findViewById(R.id.image_updateinfo_back);
-        bt_update = (Button) findViewById(R.id.bt_updateinfo_updateinfo);
+        tv_update = (TextView) findViewById(R.id.tv_updateinfo_update);
     }
 
     private void initDatas() {
@@ -97,7 +97,7 @@ public class UpdateUserInfoActivity extends Activity{
                 finish();
             }
         });
-        bt_update.setOnClickListener(new View.OnClickListener() {
+        tv_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 userName = et_name.getText().toString().trim();

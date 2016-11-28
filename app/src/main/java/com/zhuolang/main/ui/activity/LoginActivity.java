@@ -100,19 +100,24 @@ public class LoginActivity extends Activity {
                             if (userId.equals(account)&&userPsw.equals(psd)) {
                                 //保存用户类型到本地
                                 SharedPrefsUtil.putValue(LoginActivity.this,APPConfig.USERTYPE,userType);
+                                type = userType;
                                 flag=true;
                                 break;
                             }
                         }while (cursor.moveToNext());
                         cursor.close();
                     }
-                    if (flag==true){
-                        Toast.makeText(LoginActivity.this,"登陆成功",Toast.LENGTH_SHORT).show();
+                    if (flag==true) {
+                        if (type == 1) {
+                            Toast.makeText(LoginActivity.this, "管理员登陆成功", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(LoginActivity.this, "读者登陆成功", Toast.LENGTH_SHORT).show();
+                        }
                         //保存登录状态
                         SharedPrefsUtil.putValue(LoginActivity.this, APPConfig.IS_LOGIN, true);
-                        SharedPrefsUtil.putValue(LoginActivity.this,APPConfig.ACCOUNT,account);
-                        Intent intent=new Intent();
-                        intent.setClass(LoginActivity.this,MainActivity.class);
+                        SharedPrefsUtil.putValue(LoginActivity.this, APPConfig.ACCOUNT, account);
+                        Intent intent = new Intent();
+                        intent.setClass(LoginActivity.this, MainActivity.class);
                         intent.putExtra("Flagf", "false");
                         startActivity(intent);
                         finish();

@@ -21,7 +21,7 @@
                 android:layout_height="25dp" />
             <TextView
                 android:text="公告信息"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textColor="#fffff1"
                 android:layout_gravity="center_vertical"
                 android:layout_centerHorizontal="true"
@@ -30,6 +30,11 @@
                 android:gravity="center_horizontal"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/tv_noticeinfo_del"
+                android:text="删除"
+                android:textSize="20sp"
+                android:textColor="#fffff1"
+                android:gravity="center_vertical"
                 android:layout_width="62dp"
                 android:layout_height="match_parent" />
 

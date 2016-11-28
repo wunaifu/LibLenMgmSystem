@@ -22,6 +22,7 @@ import com.zhuolang.main.ui.activity.LoginActivity;
 import com.zhuolang.main.ui.activity.NowLendBookHistryActivity;
 import com.zhuolang.main.ui.activity.SettingActivity;
 import com.zhuolang.main.ui.activity.UpdateBookActivity;
+import com.zhuolang.main.ui.activity.UpdateNowLendHistryActivity;
 import com.zhuolang.main.ui.activity.UserNowLendBookHistryActivity;
 import com.zhuolang.main.ui.activity.UserinfoActivity;
 import com.zhuolang.main.utils.SharedPrefsUtil;
@@ -38,6 +39,7 @@ public class MeTabFragment extends Fragment implements View.OnClickListener{
     private LinearLayout ll_finish;
     private LinearLayout ll_setting;
     private LinearLayout ll_lendbook;
+    private LinearLayout ll_nowlend;
     private LinearLayout ll_returnbook;
     private LinearLayout ll_logout;
     private TextView tv_me;
@@ -69,6 +71,7 @@ public class MeTabFragment extends Fragment implements View.OnClickListener{
         ll_finish= (LinearLayout) view.findViewById(R.id.me_ll_finish);
         ll_setting= (LinearLayout) view.findViewById(R.id.ll_me_setting);
         ll_lendbook= (LinearLayout) view.findViewById(R.id.ll_me_lendbook);
+        ll_nowlend= (LinearLayout) view.findViewById(R.id.ll_me_nowlend);
         ll_returnbook= (LinearLayout) view.findViewById(R.id.ll_me_returnbook);
         ll_logout= (LinearLayout) view.findViewById(R.id.me_ll_logout);
         tv_me=(TextView)view.findViewById(R.id.me_tv_me);
@@ -77,13 +80,15 @@ public class MeTabFragment extends Fragment implements View.OnClickListener{
 
         ll_logout.setOnClickListener(this);
         ll_lendbook.setOnClickListener(this);
+        ll_nowlend.setOnClickListener(this);
         ll_returnbook.setOnClickListener(this);
         ll_finish.setOnClickListener(this);
         ll_setting.setOnClickListener(this);
         imageView.setOnClickListener(this);
         if (userType == 1) {
-            tv_lendbook.setText("更新图书信息");
-            tv_returnbook.setText("查看借阅情况");
+            tv_lendbook.setText(" 更新图书信息");
+        }else {
+            ll_nowlend.setVisibility(View.GONE);
         }
     }
 
@@ -102,10 +107,15 @@ public class MeTabFragment extends Fragment implements View.OnClickListener{
                 }
                 getActivity().startActivity(intent1);
                 break;
+            case R.id.ll_me_nowlend:
+                Intent intent3 = new Intent();
+                intent3.setClass(getActivity(), UserNowLendBookHistryActivity.class);
+                getActivity().startActivity(intent3);
+                break;
             case R.id.ll_me_returnbook:
                 Intent intent2 = new Intent();
                 if (userType == 1) {
-                    intent2.setClass(getActivity(), UserNowLendBookHistryActivity.class);
+                    intent2.setClass(getActivity(), UpdateNowLendHistryActivity.class);
                 } else {
                     intent2.setClass(getActivity(), NowLendBookHistryActivity.class);
                 }

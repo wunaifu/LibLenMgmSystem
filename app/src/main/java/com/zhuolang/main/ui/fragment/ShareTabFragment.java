@@ -57,6 +57,7 @@ public class ShareTabFragment extends Fragment implements AdapterView.OnItemClic
     private LinearLayout ll_share;
     private LinearLayout ll_notice;
     private LinearLayout ll_top;
+    private TextView tv_noNotices;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,6 +77,7 @@ public class ShareTabFragment extends Fragment implements AdapterView.OnItemClic
         db = dbHelper.getWritableDatabase();
         userType = SharedPrefsUtil.getValue(getContext(), APPConfig.USERTYPE, 0);
 
+        tv_noNotices = (TextView) view.findViewById(R.id.tv_share_notice);
         ll_share = (LinearLayout) view.findViewById(R.id.ll_share_share);
         ll_notice = (LinearLayout) view.findViewById(R.id.ll_share_notice);
         ll_top = (LinearLayout) view.findViewById(R.id.ll_share_top);
@@ -103,6 +105,8 @@ public class ShareTabFragment extends Fragment implements AdapterView.OnItemClic
         new Thread(new Runnable() {
             @Override
             public void run() {
+                noticeList1.clear();
+                noticeList2.clear();
                 Message message = new Message();
                 message.what = 0;
                 message.obj = "false";
@@ -136,10 +140,14 @@ public class ShareTabFragment extends Fragment implements AdapterView.OnItemClic
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent();
         intent.setClass(getActivity(), NoticeinfoActivity.class);
+        intent.putExtra("NoticeId", noticeList2.get(position).getNoticeId());
         intent.putExtra("noticeTitle", noticeList2.get(position).getNoticeTitle());
         intent.putExtra("noticeTime",noticeList2.get(position).getNoticeTime());
-        intent.putExtra("noticeTontent",noticeList2.get(position).getNoticeContent());
+        intent.putExtra("noticeTontent", noticeList2.get(position).getNoticeContent());
         startActivity(intent);
+        if (userType == 1) {
+            getActivity().finish();
+        }
     }
 
     private Handler handler = new Handler(){
@@ -152,7 +160,7 @@ public class ShareTabFragment extends Fragment implements AdapterView.OnItemClic
                         adapter = new NoticeListAdapter(getContext(), noticeList2);
                         listView.setAdapter(adapter);
                     }else {
-                        Toast.makeText(getContext(), "nothing", Toast.LENGTH_SHORT).show();
+                        tv_noNotices.setText("没有公告信息！");
                     }
                     break;
                 default:

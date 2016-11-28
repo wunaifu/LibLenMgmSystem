@@ -63,7 +63,7 @@ public class UpdateNowLendHistryActivity extends Activity implements AdapterView
         db = dbHelper.getWritableDatabase();
 
         tv_hint = (TextView) findViewById(R.id.tv_nowlendhis_hint);
-        tv_hint.setText("选择借阅项可查看借阅者信息");
+        tv_hint.setText("选择借阅项可修改借阅信息");
         listView = (ListView) findViewById(R.id.lv_nowlendhistry_list);
         listView.setOnItemClickListener(this);
 

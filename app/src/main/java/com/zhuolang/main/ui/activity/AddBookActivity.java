@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhuolang.main.R;
@@ -34,7 +35,7 @@ public class AddBookActivity extends Activity {
     private EditText et_bookNumber;
     private EditText et_bookContent;
     private ImageView iv_back;
-    private Button bt_add;
+    private TextView tv_add;
 
     private String bookId;
     private String bookName;
@@ -69,7 +70,7 @@ public class AddBookActivity extends Activity {
         et_bookNumber = (EditText) findViewById(R.id.et_update_addbook_number);
         et_bookContent = (EditText) findViewById(R.id.et_update_addbook_content);
         iv_back = (ImageView) findViewById(R.id.image_addbook_back);
-        bt_add = (Button) findViewById(R.id.bt_addbook_add);
+        tv_add = (TextView) findViewById(R.id.tv_addbookinfo_add);
 
         dbHelper = new MyDatabaseHelper(this, "LibrarySystem.db", null, 1);
     }
@@ -84,7 +85,7 @@ public class AddBookActivity extends Activity {
                 finish();
             }
         });
-        bt_add.setOnClickListener(new View.OnClickListener() {
+        tv_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int flag=0;

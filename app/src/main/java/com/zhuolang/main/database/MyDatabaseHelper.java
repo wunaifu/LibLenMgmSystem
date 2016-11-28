@@ -1,9 +1,15 @@
 package com.zhuolang.main.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
+
+import com.zhuolang.main.utils.TimeUtil;
+
+import java.util.Date;
 
 /**
  * Created by wnf on 2016/11/17.
@@ -48,6 +54,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
             +"NoticeTitle varchar(15),"
             +"NoticeTime Date,"
             +"NoticeContent varchar(150))";
+    public static String INSERTBOOK="insert into book_tab values(?,?,?,?,?,?,?,?,?,?,?)";
 
     private Context mContext;
 
@@ -62,7 +69,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(CREATE_BOOK);
         db.execSQL(CREATE_LENDREAD);
         db.execSQL(CREATE_NOTICE);
-        Toast.makeText(mContext,"Create succeeded",Toast.LENGTH_SHORT).show();
+        //默认添加测试数据
+        initDatas(db);
+        Toast.makeText(mContext,"创建数据库成功，已添加测试数据",Toast.LENGTH_SHORT).show();
     }
 
     @Override//更新数据库
@@ -72,6 +81,153 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         db.execSQL("drop table if exists lendread_tab");
         db.execSQL("drop table if exists notice_tab");
         onCreate(db);
+    }
+
+    private void initDatas(SQLiteDatabase db){
+        //添加测试用户
+        ContentValues values = new ContentValues();
+        //开始组装数据
+        values.put("UserID", "123456");
+        values.put("UserPassword", "123456");
+        values.put("UserName", "管理员");
+        values.put("UserAge", 30);
+        values.put("UserClass", "无");
+        values.put("UserSex", "男");
+        values.put("UserType", 1);
+        values.put("UserPhone", "18219111000");
+        values.put("UserAdress","B栋教师楼309");
+        db.insert("user_tab", null, values);
+
+        ContentValues values1 = new ContentValues();
+        //开始组装数据
+        values1.put("UserID", "3114002566");
+        values1.put("UserPassword", "123456");
+        values1.put("UserName", "吴乃福");
+        values1.put("UserAge", 18);
+        values1.put("UserClass", "140803");
+        values1.put("UserSex", "男");
+        values1.put("UserType", 0);
+        values1.put("UserPhone", "18219111626");
+        values1.put("UserAdress","玫瑰园宿舍1309");
+        db.insert("user_tab", null, values1);
+
+        ContentValues values2 = new ContentValues();
+        //开始组装数据
+        values2.put("UserID", "3114002581");
+        values2.put("UserPassword", "123456");
+        values2.put("UserName", "黎志荣");
+        values2.put("UserAge", 18);
+        values2.put("UserClass", "140803");
+        values2.put("UserSex", "男");
+        values2.put("UserType", 0);
+        values2.put("UserPhone", "18219112581");
+        values2.put("UserAdress","玫瑰园宿舍1309");
+        db.insert("user_tab", null, values2);
+
+        //第一次进入注册页面默认添加几本书
+        ContentValues valuesBook = new ContentValues();
+        valuesBook.put("BookId","AK0001");
+        valuesBook.put("BookName","数据库系统概论(第4版)");
+        valuesBook.put("BookType","计算机");
+        valuesBook.put("BookAuthor","王珊");
+        valuesBook.put("BookPublisher","高等教育出版社");
+        valuesBook.put("BookPublyear","2012");
+        valuesBook.put("BookPrice","25");
+        valuesBook.put("BookAddress","103");
+        valuesBook.put("BookNumber",3);
+        valuesBook.put("BookLoanable",3);
+        valuesBook.put("BookContent","数据库系统概论，数据库系统概论(第4版)");
+        db.insert("book_tab", null, valuesBook);
+
+        ContentValues valuesBook1 = new ContentValues();
+        valuesBook1.put("BookId","AK0002");
+        valuesBook1.put("BookName","编译原理");
+        valuesBook1.put("BookType", "教材");
+        valuesBook1.put("BookAuthor","王百珊");
+        valuesBook1.put("BookPublisher","高等教育出版社");
+        valuesBook1.put("BookPublyear","2013");
+        valuesBook1.put("BookPrice","25");
+        valuesBook1.put("BookAddress","103");
+        valuesBook1.put("BookNumber",3);
+        valuesBook1.put("BookLoanable",3);
+        valuesBook1.put("BookContent","编译原理，数据库系统概论(第5版)");
+        db.insert("book_tab", null, valuesBook1);
+
+        ContentValues valuesBook2 = new ContentValues();
+        valuesBook2.put("BookId","AK0003");
+        valuesBook2.put("BookName","数据库");
+        valuesBook2.put("BookType","教材");
+        valuesBook2.put("BookAuthor","王珊");
+        valuesBook2.put("BookPublisher","高等教育出版社");
+        valuesBook2.put("BookPublyear","2014");
+        valuesBook2.put("BookPrice","25");
+        valuesBook2.put("BookAddress","103");
+        valuesBook2.put("BookNumber",3);
+        valuesBook2.put("BookLoanable",3);
+        valuesBook2.put("BookContent","数据库系统概论，数据库系统概论(第6版)");
+        db.insert("book_tab", null, valuesBook2);
+
+        ContentValues valuesBook3 = new ContentValues();
+        valuesBook3.put("BookId","AK0004");
+        valuesBook3.put("BookName","操作系统");
+        valuesBook3.put("BookType","教材");
+        valuesBook3.put("BookAuthor","韩其睿");
+        valuesBook3.put("BookPublisher","清华大学出版社");
+        valuesBook3.put("BookPublyear","2014");
+        valuesBook3.put("BookPrice","25");
+        valuesBook3.put("BookAddress","103");
+        valuesBook3.put("BookNumber",3);
+        valuesBook3.put("BookLoanable",1);
+        valuesBook3.put("BookContent","操作系统，测试");
+        db.insert("book_tab", null, valuesBook3);
+
+        ContentValues valuesLend = new ContentValues();
+        //开始组装数据
+        valuesLend.put("BookId", "AK0004");
+        valuesLend.put("UserId", "3114002581");
+        valuesLend.put("LoadTime", "2016-10-25");
+        valuesLend.put("ReturnTime", "");
+        valuesLend.put("Number", "1");
+        valuesLend.put("Days", "false");
+        db.insert("lendread_tab", null, valuesLend);
+
+        ContentValues valuesLend1 = new ContentValues();
+        //开始组装数据
+        valuesLend1.put("BookId", "AK0004");
+        valuesLend1.put("UserId", "3114002581");
+        valuesLend1.put("LoadTime", "2016-10-16");
+        valuesLend1.put("ReturnTime", "2016-11-28");
+        valuesLend1.put("Number", "1");
+        valuesLend1.put("Days", "17");
+        db.insert("lendread_tab", null, valuesLend1);
+
+        ContentValues valuesLend2 = new ContentValues();
+        //开始组装数据
+        valuesLend2.put("BookId", "AK0004");
+        valuesLend2.put("UserId", "3114002566");
+        valuesLend2.put("LoadTime", "2016-10-27");
+        valuesLend2.put("ReturnTime", "");
+        valuesLend2.put("Number", "1");
+        valuesLend2.put("Days", "false");
+        db.insert("lendread_tab", null, valuesLend2);
+
+        ContentValues valuesLend3 = new ContentValues();
+        //开始组装数据
+        valuesLend3.put("BookId", "AK0004");
+        valuesLend3.put("UserId", "3114002566");
+        valuesLend3.put("LoadTime", "2016-11-10");
+        valuesLend3.put("ReturnTime", "2016-11-25");
+        valuesLend3.put("Number", "1");
+        valuesLend3.put("Days", "15");
+        db.insert("lendread_tab", null, valuesLend3);
+
+        ContentValues valuesNotice = new ContentValues();
+        //开始组装数据
+        valuesNotice.put("NoticeTitle","测试标题");
+        valuesNotice.put("NoticeTime","2016-11-27 10:10:10");
+        valuesNotice.put("NoticeContent", "测试内容，今天天气特别好");
+        db.insert("notice_tab", null, valuesNotice);
+
     }
 }
 

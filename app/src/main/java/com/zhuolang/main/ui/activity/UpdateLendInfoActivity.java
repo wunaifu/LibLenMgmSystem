@@ -47,7 +47,7 @@ public class UpdateLendInfoActivity extends Activity{
     private DatePicker dp_returnTime;
     private String returnTime;
 
-    private Button bt_update;
+    private TextView tv_update;
     private MyDatabaseHelper dbHelper;
     private UserNowLend userNowLend = new UserNowLend();
     private Gson gson = new Gson();
@@ -76,7 +76,7 @@ public class UpdateLendInfoActivity extends Activity{
         tv_days = (TextView) findViewById(R.id.tv_updatelendinfo_days);
         tv_bookAmount = (TextView) findViewById(R.id.tv_updatelendinfo_bookamount);
         imageViewBack = (ImageView) findViewById(R.id.iv_updatelendinfo_back);
-        bt_update = (Button) findViewById(R.id.bt_updatelendinfo_update);
+        tv_update = (TextView) findViewById(R.id.tv_updatelendinfo_update);
         dp_returnTime = (DatePicker) findViewById(R.id.dp_updatelendinfo_datepicker);
         radioGroup = (RadioGroup) findViewById(R.id.rg_updatelendinfo_gender);
 
@@ -142,7 +142,7 @@ public class UpdateLendInfoActivity extends Activity{
                 finish();
             }
         });
-        bt_update.setOnClickListener(new View.OnClickListener() {
+        tv_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (daysStr.equals("false")) {

@@ -26,7 +26,7 @@ public class UserinfoActivity extends Activity implements View.OnClickListener{
 
 
     private ImageView imageViewBack;
-    private Button bt_updateInfo;
+    private TextView tv_updateInfo;
 
     private TextView tv_acount;
     private TextView tv_class;
@@ -65,8 +65,8 @@ public class UserinfoActivity extends Activity implements View.OnClickListener{
         tv_sex=(TextView)findViewById(R.id.tv_userinfo_sex);
         tv_address=(TextView)findViewById(R.id.tv_userinfo_address);
         imageViewBack=(ImageView)findViewById(R.id.image_shdotinfo_back);
-        bt_updateInfo= (Button) findViewById(R.id.bt_userinfo_updateinfo);
-        bt_updateInfo.setOnClickListener(this);
+        tv_updateInfo= (TextView) findViewById(R.id.tv_userinfo_update);
+        tv_updateInfo.setOnClickListener(this);
         imageViewBack.setOnClickListener(this);
     }
 
@@ -103,7 +103,7 @@ public class UserinfoActivity extends Activity implements View.OnClickListener{
             case R.id.image_shdotinfo_back:
                 finish();
                 break;
-            case R.id.bt_userinfo_updateinfo:
+            case R.id.tv_userinfo_update:
                 Intent intent = new Intent();
                 intent.setClass(UserinfoActivity.this, UpdateUserInfoActivity.class);
                 intent.putExtra("userName", userName);

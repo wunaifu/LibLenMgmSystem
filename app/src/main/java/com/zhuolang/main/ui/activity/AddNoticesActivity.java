@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhuolang.main.R;
@@ -30,7 +31,7 @@ public class AddNoticesActivity extends Activity {
     private EditText et_title;
     private EditText et_content;
     private ImageView iv_back;
-    private Button bt_add;
+    private TextView vt_add;
 
     private String noticeId;
     private String noticeTime;
@@ -53,7 +54,7 @@ public class AddNoticesActivity extends Activity {
         et_title = (EditText) findViewById(R.id.et_addnotices_title);
         et_content = (EditText) findViewById(R.id.et_addnotices_content);
         iv_back = (ImageView) findViewById(R.id.iv_addnotices_back);
-        bt_add = (Button) findViewById(R.id.bt_addnotice_add);
+        vt_add = (TextView) findViewById(R.id.vt_addnotice_add);
 
         dbHelper = new MyDatabaseHelper(this, "LibrarySystem.db", null, 1);
         db = dbHelper.getWritableDatabase();
@@ -72,7 +73,7 @@ public class AddNoticesActivity extends Activity {
                 finish();
             }
         });
-        bt_add.setOnClickListener(new View.OnClickListener() {
+        vt_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int flag=0;

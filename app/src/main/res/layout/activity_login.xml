@@ -13,7 +13,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"/>
-
+    <TextView
+        android:layout_marginTop="35dp"
+        android:text="目前为测试版，默认管理员的账号密码都是：123456"
+        android:textSize="10sp"
+        android:textColor="#ffffff"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text="请填写登陆信息，学号即为登录帐号"
+        android:textSize="10sp"
+        android:textColor="#ffffff"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <EditText
         android:id="@+id/et_login_account"
         android:hint="请输入账号"
@@ -24,7 +38,7 @@
         android:layout_height="35dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/edittext_back"/>
     <EditText
         android:id="@+id/et_login_psd"

@@ -23,7 +23,7 @@ public class NowLendUserinfoActivity extends Activity implements View.OnClickLis
 
 
     private ImageView imageViewBack;
-    private Button bt_updateInfo;
+    private TextView tv_updateInfo;
 
     private TextView tv_acount;
     private TextView tv_class;
@@ -62,8 +62,8 @@ public class NowLendUserinfoActivity extends Activity implements View.OnClickLis
         tv_sex=(TextView)findViewById(R.id.tv_userinfo_sex);
         tv_address=(TextView)findViewById(R.id.tv_userinfo_address);
         imageViewBack=(ImageView)findViewById(R.id.image_shdotinfo_back);
-        bt_updateInfo= (Button) findViewById(R.id.bt_userinfo_updateinfo);
-        bt_updateInfo.setVisibility(View.GONE);
+        tv_updateInfo= (TextView) findViewById(R.id.tv_userinfo_update);
+        tv_updateInfo.setVisibility(View.GONE);
         imageViewBack.setOnClickListener(this);
     }
 

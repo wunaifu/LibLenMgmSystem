@@ -74,68 +74,10 @@ public class RegisterActivity extends Activity {
                 phone = et_phone.getText().toString().trim();
                 if (id.equals("") || psd.equals("")) {
                     Toast.makeText(RegisterActivity.this, "账号密码不能为空！", Toast.LENGTH_SHORT).show();
-                }else if (id.equals("123456")){
-                    Toast.makeText(RegisterActivity.this, "账号已经存在，请重新确认！", Toast.LENGTH_SHORT).show();
                 } else{
 
                     Cursor cursor=db.query("user_tab",null, null, null, null,null,null);
                     if (!cursor.moveToFirst()){
-                        //第一次进入注册页面默认添加一位管理员
-                        ContentValues valuesUser = new ContentValues();
-                        Log.d("testrun","5SQLiteDatabase db = dbHelper.getWritableDatabase();");
-                        valuesUser.put("UserID", "123456");
-                        valuesUser.put("UserPassword", "123456");
-                        valuesUser.put("UserName", "管理员");
-                        valuesUser.put("UserAge", 30);
-                        valuesUser.put("UserClass", "");
-                        valuesUser.put("UserSex", "男");
-                        valuesUser.put("UserType", 1);
-                        valuesUser.put("UserPhone", "18219111000");
-                        valuesUser.put("UserAdress","B栋教师楼309");
-                        db.insert("user_tab", null, valuesUser);
-                        //第一次进入注册页面默认添加几本书
-                        ContentValues valuesBook = new ContentValues();
-                        valuesBook.put("BookId","AK0001");
-                        valuesBook.put("BookName","数据库系统概论(第4版)");
-                        valuesBook.put("BookType","计算机");
-                        valuesBook.put("BookAuthor","王珊");
-                        valuesBook.put("BookPublisher","高等教育出版社");
-                        valuesBook.put("BookPublyear","2012");
-                        valuesBook.put("BookPrice","25");
-                        valuesBook.put("BookAddress","103");
-                        valuesBook.put("BookNumber",3);
-                        valuesBook.put("BookLoanable",3);
-                        valuesBook.put("BookContent","数据库系统概论，数据库系统概论(第4版)");
-                        db.insert("book_tab", null, valuesBook);
-
-                        ContentValues valuesBook1 = new ContentValues();
-                        valuesBook1.put("BookId","AK0002");
-                        valuesBook1.put("BookName","编译原理");
-                        valuesBook1.put("BookType", "教材");
-                        valuesBook1.put("BookAuthor","王百珊");
-                        valuesBook1.put("BookPublisher","高等教育出版社");
-                        valuesBook1.put("BookPublyear","2013");
-                        valuesBook1.put("BookPrice","25");
-                        valuesBook1.put("BookAddress","103");
-                        valuesBook1.put("BookNumber",3);
-                        valuesBook1.put("BookLoanable",3);
-                        valuesBook1.put("BookContent","编译原理，数据库系统概论(第5版)");
-                        db.insert("book_tab", null, valuesBook1);
-
-                        ContentValues valuesBook2 = new ContentValues();
-                        valuesBook2.put("BookId","AK0003");
-                        valuesBook2.put("BookName","数据库");
-                        valuesBook2.put("BookType","教材");
-                        valuesBook2.put("BookAuthor","王珊");
-                        valuesBook2.put("BookPublisher","高等教育出版社");
-                        valuesBook2.put("BookPublyear","2014");
-                        valuesBook2.put("BookPrice","25");
-                        valuesBook2.put("BookAddress","103");
-                        valuesBook2.put("BookNumber",3);
-                        valuesBook2.put("BookLoanable",3);
-                        valuesBook2.put("BookContent","数据库系统概论，数据库系统概论(第6版)");
-                        db.insert("book_tab", null, valuesBook2);
-
                         ContentValues values = new ContentValues();
                         //开始组装数据
                         values.put("UserID", id);
@@ -148,7 +90,7 @@ public class RegisterActivity extends Activity {
                         values.put("UserPhone", phone);
                         values.put("UserAdress","");
                         db.insert("user_tab", null, values);
-                        Toast.makeText(RegisterActivity.this, "注册成功,返回登陆", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "读者注册成功,返回登陆", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent();
                         intent.setClass(RegisterActivity.this, LoginActivity.class);
                         startActivity(intent);
@@ -178,7 +120,7 @@ public class RegisterActivity extends Activity {
                             values.put("UserPhone", phone);
                             values.put("UserAdress","");
                             db.insert("user_tab", null, values);
-                            Toast.makeText(RegisterActivity.this, "注册成功,返回登陆", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "读者注册成功,返回登陆", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent();
                             intent.setClass(RegisterActivity.this, LoginActivity.class);
                             startActivity(intent);

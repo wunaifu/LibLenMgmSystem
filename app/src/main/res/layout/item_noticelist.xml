@@ -21,7 +21,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="标题"
-                android:layout_weight="1"
                 android:textColor="#4d4c4c"
                 android:id="@+id/tv_item_noticelist_title"
                 android:textSize="16sp"
@@ -30,21 +29,20 @@
 
         </LinearLayout>
         <TextView
-            android:layout_weight="1"
             android:layout_marginLeft="3dp"
             android:gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:minHeight="13dp"
+            android:layout_height="14dp"
             android:text="发布时间:2016-01-01 10:10:10"
             android:id="@+id/tv_item_noticelist_time"
             android:textSize="12sp"
-            android:singleLine="true"
-            android:layout_gravity="center_vertical"/>
+            android:singleLine="true"/>
         <LinearLayout
             android:orientation="horizontal"
             android:minHeight="40dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -52,6 +50,7 @@
                 android:text="内容"
                 android:layout_marginLeft="3dp"
                 android:gravity="center_vertical"
+                android:minLines="3"
                 android:maxLength="151"
                 android:id="@+id/tv_item_noticelist_content"
                 android:textSize="14sp"

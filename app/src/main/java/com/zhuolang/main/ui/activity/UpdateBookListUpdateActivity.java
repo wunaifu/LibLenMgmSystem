@@ -38,7 +38,7 @@ public class UpdateBookListUpdateActivity extends Activity{
     private EditText et_bookNumber;
     private EditText et_bookContent;
     private ImageView iv_back;
-    private Button bt_update;
+    private TextView tv_update;
 
     private String bookId;
     private String bookName;
@@ -83,7 +83,7 @@ public class UpdateBookListUpdateActivity extends Activity{
         et_bookNumber = (EditText) findViewById(R.id.et_updatebooklist_update_number);
         et_bookContent = (EditText) findViewById(R.id.et_updatebooklist_update_content);
         iv_back = (ImageView) findViewById(R.id.image_updatebooklist_update_back);
-        bt_update = (Button) findViewById(R.id.bt_updatebooklist_update_update);
+        tv_update = (TextView) findViewById(R.id.tv_updatebooklist_update_update);
 
         dbHelper = new MyDatabaseHelper(this, "LibrarySystem.db", null, 1);
     }
@@ -100,7 +100,7 @@ public class UpdateBookListUpdateActivity extends Activity{
         et_bookNumber.setText(book.getBookNumber());
         et_bookContent.setText(book.getBookConten());
 
-        bt_update.setOnClickListener(new View.OnClickListener() {
+        tv_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bookName = et_bookName.getText().toString().trim();

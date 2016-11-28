@@ -26,132 +26,161 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_me_lendbook"
-        android:orientation="horizontal"
-        android:layout_marginTop="12dp"
-        android:background="#fcfbfb"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/myapm01"
-            android:background="#5888e7"
-            android:layout_width="22dp"
-            android:layout_height="22dp" />
-        <TextView
-            android:id="@+id/tv_me_lendbook"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:text=" 借书 "
-            android:textSize="18dp"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/ll_me_lendbook"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:background="#fcfbfb"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/myapm01"
+                    android:background="#5888e7"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp" />
+                <TextView
+                    android:id="@+id/tv_me_lendbook"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:text=" 借书 "
+                    android:textSize="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_me_nowlend"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:background="#fcfbfb"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/myapm01"
+                    android:background="#5888e7"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp" />
+                <TextView
+                    android:id="@+id/tv_me_nowlend"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:text=" 查看借阅情况 "
+                    android:textSize="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:id="@+id/ll_me_returnbook"
-        android:orientation="horizontal"
-        android:layout_marginTop="12dp"
-        android:background="#fcfbfb"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/myapm01"
-            android:background="#5888e7"
-            android:layout_width="22dp"
-            android:layout_height="22dp" />
-        <TextView
-            android:id="@+id/tv_me_returnbook"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:text=" 还书 "
-            android:textSize="18dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_me_returnbook"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:background="#fcfbfb"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/myapm01"
+                    android:background="#5888e7"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp" />
+                <TextView
+                    android:id="@+id/tv_me_returnbook"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:text=" 还书 "
+                    android:textSize="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_me_setting"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:background="#fcfbfb"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/settings"
+
+                    android:background="#5888e7"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp" />
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:text=" 设置 "
+                    android:textSize="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/me_ll_logout"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:background="#fcfbfb"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/logout"
+
+                    android:background="#5888e7"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp" />
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:text=" 注销 "
+                    android:textSize="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/me_ll_finish"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:background="#fcfbfb"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/finish01"
+
+                    android:background="#5888e7"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp" />
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:text=" 退出 "
+                    android:textSize="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
-    <LinearLayout
-        android:id="@+id/ll_me_setting"
-        android:orientation="horizontal"
-        android:layout_marginTop="12dp"
-        android:background="#fcfbfb"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/settings"
-
-            android:background="#5888e7"
-            android:layout_width="22dp"
-            android:layout_height="22dp" />
-        <TextView
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:text=" 设置 "
-            android:textSize="18dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/me_ll_logout"
-        android:orientation="horizontal"
-        android:layout_marginTop="12dp"
-        android:background="#fcfbfb"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/logout"
-
-            android:background="#5888e7"
-            android:layout_width="22dp"
-            android:layout_height="22dp" />
-        <TextView
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:text=" 注销 "
-            android:textSize="18dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/me_ll_finish"
-        android:orientation="horizontal"
-        android:layout_marginTop="12dp"
-        android:background="#fcfbfb"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/finish01"
-
-            android:background="#5888e7"
-            android:layout_width="22dp"
-            android:layout_height="22dp" />
-        <TextView
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:text=" 退出 "
-            android:textSize="18dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
 
 
 
