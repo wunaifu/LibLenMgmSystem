@@ -42,6 +42,8 @@
         <activity android:name=".ui.activity.NowLendUserinfoActivity"></activity>
         <activity android:name=".ui.activity.UpdateLendInfoActivity"></activity>
         <activity android:name=".ui.activity.UpdateNowLendHistryActivity"></activity>
+        <activity android:name=".ui.activity.AddNoticesActivity"></activity>
+        <activity android:name=".ui.activity.NoticeinfoActivity"></activity>
 
     </application>
 

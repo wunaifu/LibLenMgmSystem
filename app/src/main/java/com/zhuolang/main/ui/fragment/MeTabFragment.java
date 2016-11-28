@@ -17,8 +17,12 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.zhuolang.main.R;
 import com.zhuolang.main.common.APPConfig;
+import com.zhuolang.main.ui.activity.BookListActivity;
 import com.zhuolang.main.ui.activity.LoginActivity;
+import com.zhuolang.main.ui.activity.NowLendBookHistryActivity;
 import com.zhuolang.main.ui.activity.SettingActivity;
+import com.zhuolang.main.ui.activity.UpdateBookActivity;
+import com.zhuolang.main.ui.activity.UserNowLendBookHistryActivity;
 import com.zhuolang.main.ui.activity.UserinfoActivity;
 import com.zhuolang.main.utils.SharedPrefsUtil;
 
@@ -33,11 +37,14 @@ public class MeTabFragment extends Fragment implements View.OnClickListener{
     private ImageView imageView=null;
     private LinearLayout ll_finish;
     private LinearLayout ll_setting;
-    private LinearLayout ll_test;
+    private LinearLayout ll_lendbook;
+    private LinearLayout ll_returnbook;
     private LinearLayout ll_logout;
     private TextView tv_me;
+    private TextView tv_returnbook;
+    private TextView tv_lendbook;
     private View view = null;
-
+    private int userType=0;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +58,7 @@ public class MeTabFragment extends Fragment implements View.OnClickListener{
 
         view = inflater.inflate(R.layout.me, container, false);
         Log.d("activityID", "这个是meTabFragment----------:" + this.toString());
-
+        userType = SharedPrefsUtil.getValue(getContext(), APPConfig.USERTYPE, 0);
         initView(view);
         return view;
 
@@ -61,15 +68,23 @@ public class MeTabFragment extends Fragment implements View.OnClickListener{
         imageView=(ImageView)view.findViewById(R.id.image_me_mineinfo);
         ll_finish= (LinearLayout) view.findViewById(R.id.me_ll_finish);
         ll_setting= (LinearLayout) view.findViewById(R.id.ll_me_setting);
-        ll_test= (LinearLayout) view.findViewById(R.id.me_test);
+        ll_lendbook= (LinearLayout) view.findViewById(R.id.ll_me_lendbook);
+        ll_returnbook= (LinearLayout) view.findViewById(R.id.ll_me_returnbook);
         ll_logout= (LinearLayout) view.findViewById(R.id.me_ll_logout);
         tv_me=(TextView)view.findViewById(R.id.me_tv_me);
+        tv_returnbook=(TextView)view.findViewById(R.id.tv_me_returnbook);
+        tv_lendbook=(TextView)view.findViewById(R.id.tv_me_lendbook);
 
         ll_logout.setOnClickListener(this);
-        ll_test.setOnClickListener(this);
+        ll_lendbook.setOnClickListener(this);
+        ll_returnbook.setOnClickListener(this);
         ll_finish.setOnClickListener(this);
         ll_setting.setOnClickListener(this);
         imageView.setOnClickListener(this);
+        if (userType == 1) {
+            tv_lendbook.setText("更新图书信息");
+            tv_returnbook.setText("查看借阅情况");
+        }
     }
 
     @Override
@@ -78,6 +93,24 @@ public class MeTabFragment extends Fragment implements View.OnClickListener{
     }
     private void clickImage(View v) {
         switch (v.getId()) {
+            case R.id.ll_me_lendbook:
+                Intent intent1 = new Intent();
+                if (userType == 1) {
+                    intent1.setClass(getActivity(), UpdateBookActivity.class);
+                } else {
+                    intent1.setClass(getActivity(), BookListActivity.class);
+                }
+                getActivity().startActivity(intent1);
+                break;
+            case R.id.ll_me_returnbook:
+                Intent intent2 = new Intent();
+                if (userType == 1) {
+                    intent2.setClass(getActivity(), UserNowLendBookHistryActivity.class);
+                } else {
+                    intent2.setClass(getActivity(), NowLendBookHistryActivity.class);
+                }
+                getActivity().startActivity(intent2);
+                break;
             case R.id.image_me_mineinfo:
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), UserinfoActivity.class);

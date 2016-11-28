@@ -43,7 +43,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
             +"Number int,"
             +"Days varchar(6))";
 
-
+    public static final String CREATE_NOTICE="create table notice_tab("
+            +"NoticeId integer primary key autoincrement,"
+            +"NoticeTitle varchar(15),"
+            +"NoticeTime Date,"
+            +"NoticeContent varchar(150))";
 
     private Context mContext;
 
@@ -57,6 +61,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(CREATE_USER);//执行建表语句
         db.execSQL(CREATE_BOOK);
         db.execSQL(CREATE_LENDREAD);
+        db.execSQL(CREATE_NOTICE);
         Toast.makeText(mContext,"Create succeeded",Toast.LENGTH_SHORT).show();
     }
 
@@ -65,6 +70,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         db.execSQL("drop table if exists user_tab");//将存在的表删除，再调用更新函数
         db.execSQL("drop table if exists book_tab");
         db.execSQL("drop table if exists lendread_tab");
+        db.execSQL("drop table if exists notice_tab");
         onCreate(db);
     }
 }

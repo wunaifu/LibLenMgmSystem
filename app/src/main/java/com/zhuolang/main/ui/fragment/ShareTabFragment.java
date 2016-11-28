@@ -25,11 +25,15 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.zhuolang.main.R;
 import com.zhuolang.main.adapter.BookListAdapter;
+import com.zhuolang.main.adapter.NoticeListAdapter;
 import com.zhuolang.main.common.APPConfig;
 import com.zhuolang.main.database.MyDatabaseHelper;
 import com.zhuolang.main.model.Book;
+import com.zhuolang.main.model.Notice;
+import com.zhuolang.main.ui.activity.AddNoticesActivity;
 import com.zhuolang.main.ui.activity.BookListDetailActivity;
 import com.zhuolang.main.ui.activity.LendBookListDetailActivity;
+import com.zhuolang.main.ui.activity.NoticeinfoActivity;
 import com.zhuolang.main.utils.SharedPrefsUtil;
 
 import java.util.ArrayList;
@@ -43,20 +47,15 @@ import java.util.List;
 public class ShareTabFragment extends Fragment implements AdapterView.OnItemClickListener{
 
     private View view = null;
-    private EditText et_info;
-    private TextView tv_byname;
-    private TextView tv_byid;
-    private TextView tv_hint;
-    private String info;
     private int userType;
     private MyDatabaseHelper dbHelper;
     private SQLiteDatabase db;
-    private BookListAdapter adapter;
-    private List<Book> bookList = new ArrayList<>();
-
+    private NoticeListAdapter adapter;
+    private List<Notice> noticeList1 = new ArrayList<>();
+    private List<Notice> noticeList2 = new ArrayList<>();
     private ListView listView;
     private LinearLayout ll_share;
-    private LinearLayout ll_notic;
+    private LinearLayout ll_notice;
     private LinearLayout ll_top;
 
     @Override
@@ -78,24 +77,88 @@ public class ShareTabFragment extends Fragment implements AdapterView.OnItemClic
         userType = SharedPrefsUtil.getValue(getContext(), APPConfig.USERTYPE, 0);
 
         ll_share = (LinearLayout) view.findViewById(R.id.ll_share_share);
-        ll_notic = (LinearLayout) view.findViewById(R.id.ll_share_notice);
+        ll_notice = (LinearLayout) view.findViewById(R.id.ll_share_notice);
         ll_top = (LinearLayout) view.findViewById(R.id.ll_share_top);
         listView = (ListView) view.findViewById(R.id.lv_share_list);
-        listView.setOnItemClickListener(this);
+
         if (userType != 1) {
-            ll_notic.setVisibility(View.GONE);
+            ll_notice.setVisibility(View.GONE);
             ll_top.setBackgroundResource(R.drawable.listback03);
         }
+        listView.setOnItemClickListener(this);
+        ll_notice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddNoticesActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
         initMotion();
         return view;
     }
 
     public void initMotion() {
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Message message = new Message();
+                message.what = 0;
+                message.obj = "false";
+                Cursor cursor = db.query("notice_tab", null, null, null, null, null, null, null);
+                if (!cursor.moveToFirst()) {
+//                    Toast.makeText(getContext(), "还没发布公告", Toast.LENGTH_SHORT).show();
+                } else {
+                    do {
+                        Notice notice = new Notice();
+                        notice.setNoticeId(cursor.getString(cursor.getColumnIndex("NoticeId")));
+                        notice.setNoticeTitle(cursor.getString(cursor.getColumnIndex("NoticeTitle")));
+                        notice.setNoticeTime(cursor.getString(cursor.getColumnIndex("NoticeTime")));
+                        notice.setNoticeContent(cursor.getString(cursor.getColumnIndex("NoticeContent")));
+                        noticeList1.add(notice);
+                    } while (cursor.moveToNext());
+                    cursor.close();
+                }
+                if (noticeList1.size() > 0) {
+                    message.obj = "true";
+                    for (int i = noticeList1.size() - 1; i >= 0; i--) {
+                        noticeList2.add(noticeList1.get(i));
+                    }
+                }
+                handler.sendMessage(message);
+            }
+        }).start();
+
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), NoticeinfoActivity.class);
+        intent.putExtra("noticeTitle", noticeList2.get(position).getNoticeTitle());
+        intent.putExtra("noticeTime",noticeList2.get(position).getNoticeTime());
+        intent.putExtra("noticeTontent",noticeList2.get(position).getNoticeContent());
+        startActivity(intent);
     }
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    if (msg.obj.equals("true")) {
+                        adapter = new NoticeListAdapter(getContext(), noticeList2);
+                        listView.setAdapter(adapter);
+                    }else {
+                        Toast.makeText(getContext(), "nothing", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+        }
+    };
 }

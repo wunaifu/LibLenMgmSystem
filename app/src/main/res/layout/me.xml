@@ -28,6 +28,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_me_lendbook"
         android:orientation="horizontal"
         android:layout_marginTop="12dp"
         android:background="#fcfbfb"
@@ -41,9 +42,10 @@
             android:layout_width="22dp"
             android:layout_height="22dp" />
         <TextView
+            android:id="@+id/tv_me_lendbook"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:text=" 我的借阅历史 "
+            android:text=" 借书 "
             android:textSize="18dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -51,7 +53,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/me_test"
+        android:id="@+id/ll_me_returnbook"
         android:orientation="horizontal"
         android:layout_marginTop="12dp"
         android:background="#fcfbfb"
@@ -60,14 +62,15 @@
         <ImageView
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/help1"
+            android:src="@drawable/myapm01"
             android:background="#5888e7"
             android:layout_width="22dp"
             android:layout_height="22dp" />
         <TextView
+            android:id="@+id/tv_me_returnbook"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:text=" 帮助与反馈 "
+            android:text=" 还书 "
             android:textSize="18dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

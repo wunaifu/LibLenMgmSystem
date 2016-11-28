@@ -17,6 +17,7 @@ import com.zhuolang.main.utils.SharedPrefsUtil;
  */
 public class UpdateBookActivity extends Activity implements View.OnClickListener{
 
+    private ImageView iv_findbook;
     private ImageView iv_addbook;
     private ImageView iv_delbook;
     private ImageView iv_updatebook;
@@ -30,6 +31,8 @@ public class UpdateBookActivity extends Activity implements View.OnClickListener
         iv_updatebook = (ImageView) this.findViewById(R.id.image_updateboook_update);
         iv_delbook = (ImageView) this.findViewById(R.id.image_updateboook_delete);
         iv_back = (ImageView) this.findViewById(R.id.image_updatebook_back);
+        iv_findbook = (ImageView) this.findViewById(R.id.image_updateboook_find);
+        iv_findbook.setOnClickListener(this);
         iv_addbook.setOnClickListener(this);
         iv_back.setOnClickListener(this);
         iv_updatebook.setOnClickListener(this);
@@ -59,6 +62,11 @@ public class UpdateBookActivity extends Activity implements View.OnClickListener
             case R.id.image_updatebook_back:
 
                 finish();
+                break;
+            case R.id.image_updateboook_find:
+                Intent intent3 = new Intent();
+                intent3.setClass(UpdateBookActivity.this, BookListActivity.class);
+                startActivity(intent3);
                 break;
             default:
                 break;
