@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"/>
     <TextView
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="27dp"
         android:text="目前为测试版，默认管理员的账号密码都是：123456"
         android:textSize="10sp"
         android:textColor="#ffffff"

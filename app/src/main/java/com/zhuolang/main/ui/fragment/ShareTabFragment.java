@@ -34,6 +34,7 @@ import com.zhuolang.main.ui.activity.AddNoticesActivity;
 import com.zhuolang.main.ui.activity.BookListDetailActivity;
 import com.zhuolang.main.ui.activity.LendBookListDetailActivity;
 import com.zhuolang.main.ui.activity.NoticeinfoActivity;
+import com.zhuolang.main.ui.activity.ShareInfoListActivity;
 import com.zhuolang.main.utils.SharedPrefsUtil;
 
 import java.util.ArrayList;
@@ -93,7 +94,16 @@ public class ShareTabFragment extends Fragment implements AdapterView.OnItemClic
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddNoticesActivity.class);
                 startActivity(intent);
+//                getActivity().overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 getActivity().finish();
+            }
+        });
+        ll_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ShareInfoListActivity.class);
+                startActivity(intent);
+//                getActivity().overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
             }
         });
         initMotion();

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="#eaeaea"
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,22 +40,28 @@
                 android:layout_height="match_parent" />
 
         </LinearLayout>
+        <LinearLayout
+            android:background="#f9f6f6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_noticeinfo_title"
+                android:maxLength="15"
+                android:text="标题"
+                android:gravity="center"
+                android:textSize="19sp"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"/>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_noticeinfo_title"
-            android:maxLength="15"
-            android:text="标题"
-            android:gravity="center"
-            android:textSize="19sp"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"/>
-        <TextView
+
             android:id="@+id/tv_noticeinfo_time"
             android:text="发布时间:2016-01-01 10:10:10"
             android:textSize="12sp"
             android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <LinearLayout
             android:layout_marginTop="5dp"
@@ -70,8 +77,10 @@
                 android:maxLength="150"
                 android:text="内容"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:textSize="15sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

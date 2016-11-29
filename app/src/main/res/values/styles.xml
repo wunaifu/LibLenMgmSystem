@@ -32,4 +32,24 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+ <!--   <style name="AnimationActivity" parent="@android:style/Animation.Activity" type="text/css">
+        <item name="android:activityOpenEnterAnimation">@anim/enter_anim</item>
+        <item name="android:activityOpenEnterAnimation">@anim/enter_anim</item>
+    </style>
+    -->
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity" type="text/css">
+        <item name="android:activityOpenEnterAnimation">@anim/enter_anim</item>
+        <item name="android:activityOpenExitAnimation">@anim/lenter_anim</item>
+        <item name="android:activityCloseEnterAnimation">@anim/exit_anim</item>
+        <item name="android:activityCloseExitAnimation">@anim/lexit_anim</item></style>
+    <style name="themeSettingNotitle" type="text/css">
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+        <!-- 设置无标题 -->
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <style name="themeSetting" type="text/css">
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+    </style>
+
+
 </resources>

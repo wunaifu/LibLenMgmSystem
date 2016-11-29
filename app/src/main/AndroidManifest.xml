@@ -20,30 +20,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.MainActivity"></activity>
-        <activity android:name=".ui.activity.LoginActivity"></activity>
-        <activity android:name=".ui.activity.RegisterActivity"></activity>
-        <activity android:name=".ui.activity.UserinfoActivity"></activity>
-        <activity android:name=".ui.activity.UpdateUserInfoActivity"></activity>
-        <activity android:name=".ui.activity.SettingActivity"></activity>
-        <activity android:name=".ui.activity.UpdatePswActivity"></activity>
-        <activity android:name=".ui.activity.UpdateBookActivity"></activity>
-        <activity android:name=".ui.activity.AddBookActivity"></activity>
-        <activity android:name=".ui.activity.BookListActivity"></activity>
-        <activity android:name=".ui.activity.BookListDetailActivity"></activity>
-        <activity android:name=".ui.activity.UpdateBookListActivity"></activity>
-        <activity android:name=".ui.activity.UpdateBookListUpdateActivity"></activity>
-        <activity android:name=".ui.activity.DelBookListActivity"></activity>
-        <activity android:name=".ui.activity.LendBookListDetailActivity"></activity>
-        <activity android:name=".ui.activity.NowLendBookHistryActivity"></activity>
-        <activity android:name=".ui.activity.LendBookHistryActivity"></activity>
-        <activity android:name=".ui.activity.NowLendBookHistryDetailActivity"></activity>
-        <activity android:name=".ui.activity.UserNowLendBookHistryActivity" ></activity>
-        <activity android:name=".ui.activity.NowLendUserinfoActivity"></activity>
-        <activity android:name=".ui.activity.UpdateLendInfoActivity"></activity>
-        <activity android:name=".ui.activity.UpdateNowLendHistryActivity"></activity>
-        <activity android:name=".ui.activity.AddNoticesActivity"></activity>
-        <activity android:name=".ui.activity.NoticeinfoActivity"></activity>
+        <activity android:name=".ui.activity.MainActivity" android:theme="@style/themeSetting"></activity>
+        <activity android:name=".ui.activity.LoginActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.RegisterActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.UserinfoActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.UpdateUserInfoActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.SettingActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.UpdatePswActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.UpdateBookActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.AddBookActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.BookListActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.BookListDetailActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.UpdateBookListActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.UpdateBookListUpdateActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.DelBookListActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.LendBookListDetailActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.NowLendBookHistryActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.LendBookHistryActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.NowLendBookHistryDetailActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.UserNowLendBookHistryActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.NowLendUserinfoActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.UpdateLendInfoActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.UpdateNowLendHistryActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.AddNoticesActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.NoticeinfoActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.ShareInfoListActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.AddSharesActivity" android:theme="@style/themeSettingNotitle"></activity>
+        <activity android:name=".ui.activity.ShareSpecificInfoActivity" android:theme="@style/themeSettingNotitle"></activity>
 
     </application>
 

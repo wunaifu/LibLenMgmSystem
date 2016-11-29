@@ -48,16 +48,19 @@ public class UpdateBookActivity extends Activity implements View.OnClickListener
                 Intent intent = new Intent();
                 intent.setClass(UpdateBookActivity.this, AddBookActivity.class);
                 this.startActivity(intent);
+//                this.overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 break;
             case R.id.image_updateboook_update:
                 Intent intent1 = new Intent();
                 intent1.setClass(UpdateBookActivity.this, UpdateBookListActivity.class);
                 this.startActivity(intent1);
+//                this.overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 break;
             case R.id.image_updateboook_delete:
                 Intent intent2 = new Intent();
                 intent2.setClass(UpdateBookActivity.this, DelBookListActivity.class);
                 this.startActivity(intent2);
+//                this.overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 break;
             case R.id.image_updatebook_back:
 
@@ -67,6 +70,7 @@ public class UpdateBookActivity extends Activity implements View.OnClickListener
                 Intent intent3 = new Intent();
                 intent3.setClass(UpdateBookActivity.this, BookListActivity.class);
                 startActivity(intent3);
+//                this.overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 break;
             default:
                 break;

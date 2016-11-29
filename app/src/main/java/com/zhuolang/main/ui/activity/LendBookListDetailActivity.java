@@ -112,80 +112,92 @@ public class LendBookListDetailActivity extends Activity {
                 dialog1.setMessage("是否借阅\"" + book.getBookName() + "\"图书！");
                 dialog1.setCancelable(false);
                 dialog1.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                int loadable = 0;
-                                int numberLend = 0;
-                                Cursor cursor = db.query("book_tab", null, null, null, null, null, null);
-                                if (!cursor.moveToFirst()) {
-                                    Toast.makeText(LendBookListDetailActivity.this, "数据库中没有该图书数据", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    // 1. 获取可供借阅数量
-                                    do {
-                                        String bookid = cursor.getString(cursor.getColumnIndex("BookId"));
-                                        if (bookid.equals(book.getBookId())) {
-                                            loadable = cursor.getInt(cursor.getColumnIndex("BookLoanable"));
-                                            break;
-                                        }
-                                    } while (cursor.moveToNext());
-                                    cursor.close();
-                                    // 2. 可供借阅数量是否大于0
-                                    if (loadable > 0) {
-//                                        cursor = db.query("lendread_tab", null, null, null, null, null, null);
-//                                        if (cursor.moveToFirst()) {
-//                                            // 3. 是否已经借阅过本书，获取已借阅数量
-//                                            do {
-//                                                String bookidLend = cursor.getString(cursor.getColumnIndex("BookId"));
-//                                                String useridLend = cursor.getString(cursor.getColumnIndex("UserId"));
-//                                                if (bookidLend.equals(book.getBookId()) && useridLend.equals(userId)) {
-//                                                    numberLend = cursor.getInt(cursor.getColumnIndex("Number"));
-//                                                    break;
-//                                                }
-//                                            } while (cursor.moveToNext());
-//                                            cursor.close();
-//                                        }
-                                        // 4. 添加借阅表信息
-                                        ContentValues valuesLend = new ContentValues();
-                                        Date date = new Date();
-                                        //开始组装数据
-                                        valuesLend.put("BookId", book.getBookId());
-                                        Log.d("testrun", "LendBookListdeActivity book.getBookId()" + book.getBookId());
-                                        valuesLend.put("UserId", userId);
-                                        valuesLend.put("LoadTime", TimeUtil.dateToStrNoTime(date));
-//                                        valuesLend.put("LoadTime", "2016-11-22");
-                                        valuesLend.put("ReturnTime", TimeUtil.dateToStrNoTime(date));
-                                        valuesLend.put("Number", (numberLend + 1));
-                                        valuesLend.put("Days", "false");
-                                        db.insert("lendread_tab", null, valuesLend);
-                                        Toast.makeText(LendBookListDetailActivity.this, "借阅成功", Toast.LENGTH_SHORT).show();
-
-                                        String[] bookidStr = new String[1];
-                                        bookidStr[0] = book.getBookId();
-                                        // 5. 更新book_tab表  BookLoanable-1
-                                        ContentValues valuesBook = new ContentValues();
-                                        //开始组装数据
-                                        valuesBook.put("BookLoanable", (loadable - 1));
-                                        db.update("book_tab", valuesBook, "BookId = ?", bookidStr);
-                                        // 6. 更细当前页面可供借阅数量  -1
-                                        book.setBookLoanable((Integer.parseInt(book.getBookLoanable()) - 1) + "");
-                                        tv_bookLoanable.setText(book.getBookLoanable());
-                                    } else {
-                                        Toast.makeText(LendBookListDetailActivity.this, "暂时没有该图书可供借阅的", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            }
-                        }
-
-                );
-                dialog1.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        int loadable = 0;
+                        int numberLend = 0;
+                        int havenumber = 0;
+                        //1.用户当前正在借了多少本书，上限为5本书
+                        Cursor cursorCheck = db.query("lendread_tab", null, null, null, null, null, null);
+                        if (!cursorCheck.moveToFirst()) {
+
+                        } else {
+                            do {
+                                String dayss = cursorCheck.getString(cursorCheck.getColumnIndex("Days"));
+                                String userid = cursorCheck.getString(cursorCheck.getColumnIndex("UserId"));
+                                if (dayss.equals("false") && userid.equals(userId)) {
+                                    havenumber++;
+                                }
+                            } while (cursorCheck.moveToNext());
+                            cursorCheck.close();
+                        }
+                        if (havenumber < 5) {
+                            Cursor cursor = db.query("book_tab", null, null, null, null, null, null);
+                            if (!cursor.moveToFirst()) {
+                                Toast.makeText(LendBookListDetailActivity.this, "数据库中没有该图书数据", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // 2. 获取可供借阅数量
+                                do {
+                                    String bookid = cursor.getString(cursor.getColumnIndex("BookId"));
+
+                                    if (bookid.equals(book.getBookId())) {
+                                        loadable = cursor.getInt(cursor.getColumnIndex("BookLoanable"));
+                                        break;
+                                    }
+
+                                } while (cursor.moveToNext());
+                                cursor.close();
+                                // 3. 可供借阅数量是否大于0
+                                if (loadable > 0) {
+                                    // 4. 添加借阅表信息
+                                    ContentValues valuesLend = new ContentValues();
+                                    Date date = new Date();
+                                    //开始组装数据
+                                    valuesLend.put("BookId", book.getBookId());
+                                    Log.d("testrun", "LendBookListdeActivity book.getBookId()" + book.getBookId());
+                                    valuesLend.put("UserId", userId);
+                                    valuesLend.put("LoadTime", TimeUtil.dateToStrNoTime(date));
+//                                        valuesLend.put("LoadTime", "2016-11-22");
+                                    valuesLend.put("ReturnTime", TimeUtil.dateToStrNoTime(date));
+                                    valuesLend.put("Number", (numberLend + 1));
+                                    valuesLend.put("Days", "false");
+                                    db.insert("lendread_tab", null, valuesLend);
+                                    Toast.makeText(LendBookListDetailActivity.this, "借阅成功", Toast.LENGTH_SHORT).show();
+
+                                    String[] bookidStr = new String[1];
+                                    bookidStr[0] = book.getBookId();
+                                    // 5. 更新book_tab表  BookLoanable-1
+                                    ContentValues valuesBook = new ContentValues();
+                                    //开始组装数据
+                                    valuesBook.put("BookLoanable", (loadable - 1));
+                                    db.update("book_tab", valuesBook, "BookId = ?", bookidStr);
+                                    // 6. 更细当前页面可供借阅数量  -1
+                                    book.setBookLoanable((Integer.parseInt(book.getBookLoanable()) - 1) + "");
+                                    tv_bookLoanable.setText(book.getBookLoanable());
+                                } else {
+                                    Toast.makeText(LendBookListDetailActivity.this, "暂时没有该图书可供借阅的", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }else {
+                            Toast.makeText(LendBookListDetailActivity.this, "您目前所借书籍已经达到上限5本，请先还书再借阅", Toast.LENGTH_SHORT).show();
+                        }
+                }
+            }
+
+                    );
+                    dialog1.setNegativeButton("取消",new DialogInterface.OnClickListener()
+
+                    {
+                        @Override
+                        public void onClick (DialogInterface dialog,int which){
 
                     }
-                });
-                dialog1.show();
-            }
-        });
+                    }
+
+                    );
+                    dialog1.show();
+                }
+            });
         imageViewback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

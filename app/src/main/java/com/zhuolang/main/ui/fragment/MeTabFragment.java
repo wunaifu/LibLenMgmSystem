@@ -106,6 +106,7 @@ public class MeTabFragment extends Fragment implements View.OnClickListener{
                     intent1.setClass(getActivity(), BookListActivity.class);
                 }
                 getActivity().startActivity(intent1);
+//                getActivity().overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 break;
             case R.id.ll_me_nowlend:
                 Intent intent3 = new Intent();
@@ -120,11 +121,13 @@ public class MeTabFragment extends Fragment implements View.OnClickListener{
                     intent2.setClass(getActivity(), NowLendBookHistryActivity.class);
                 }
                 getActivity().startActivity(intent2);
+//                getActivity().overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 break;
             case R.id.image_me_mineinfo:
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), UserinfoActivity.class);
                 getActivity().startActivity(intent);
+//                getActivity().overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 break;
             case R.id.me_ll_finish:
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
@@ -149,6 +152,7 @@ public class MeTabFragment extends Fragment implements View.OnClickListener{
                 Intent intentSet = new Intent();
                 intentSet.setClass(getActivity(), SettingActivity.class);
                 startActivity(intentSet);
+//                getActivity().overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 break;
             case R.id.me_ll_logout:
                 AlertDialog.Builder dialog1 = new AlertDialog.Builder(getActivity());
@@ -162,6 +166,7 @@ public class MeTabFragment extends Fragment implements View.OnClickListener{
                         Intent intent2 = new Intent();
                         intent2.setClass(getActivity(), LoginActivity.class);
                         startActivity(intent2);
+//                        getActivity().overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                         getActivity().finish();
                     }
                 });

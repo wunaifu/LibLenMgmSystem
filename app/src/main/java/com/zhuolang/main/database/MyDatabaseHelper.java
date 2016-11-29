@@ -54,7 +54,19 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
             +"NoticeTitle varchar(15),"
             +"NoticeTime Date,"
             +"NoticeContent varchar(150))";
-    public static String INSERTBOOK="insert into book_tab values(?,?,?,?,?,?,?,?,?,?,?)";
+
+    public static final String CREATE_SHARE="create table share_tab("
+            +"ShareId integer primary key autoincrement,"
+            +"ShareUserId varchar(20),"
+            +"ShareTime Date,"
+            +"ShareLike int,"
+            +"ShareContent varchar(150))";
+
+    public static final String CREATE_SHARELIKES="create table likes_tab("
+            +"LikesId integer primary key autoincrement,"
+            +"ShareId varchar(20),"
+            +"LikesTime Date,"//
+            +"UserLikesId varchar(20))";
 
     private Context mContext;
 
@@ -69,6 +81,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(CREATE_BOOK);
         db.execSQL(CREATE_LENDREAD);
         db.execSQL(CREATE_NOTICE);
+        db.execSQL(CREATE_SHARE);
+        db.execSQL(CREATE_SHARELIKES);
         //默认添加测试数据
         initDatas(db);
         Toast.makeText(mContext,"创建数据库成功，已添加测试数据",Toast.LENGTH_SHORT).show();
@@ -80,6 +94,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         db.execSQL("drop table if exists book_tab");
         db.execSQL("drop table if exists lendread_tab");
         db.execSQL("drop table if exists notice_tab");
+        db.execSQL("drop table if exists share_tab");
+        db.execSQL("drop table if exists likes_tab");
         onCreate(db);
     }
 
@@ -180,7 +196,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         valuesBook3.put("BookLoanable",1);
         valuesBook3.put("BookContent","操作系统，测试");
         db.insert("book_tab", null, valuesBook3);
-
+        //借阅表
         ContentValues valuesLend = new ContentValues();
         //开始组装数据
         valuesLend.put("BookId", "AK0004");
@@ -227,6 +243,53 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         valuesNotice.put("NoticeTime","2016-11-27 10:10:10");
         valuesNotice.put("NoticeContent", "测试内容，今天天气特别好");
         db.insert("notice_tab", null, valuesNotice);
+
+        ContentValues valuesNotice1 = new ContentValues();
+        //开始组装数据
+        valuesNotice1.put("NoticeTitle","闭馆通知");
+        valuesNotice1.put("NoticeTime","2016-11-28 20:52:10");
+        valuesNotice1.put("NoticeContent", "测试内容，今天天气特别好。这周星期五下午图书馆闭馆半天，请同学们做好借阅情况，谢谢大家");
+        db.insert("notice_tab", null, valuesNotice1);
+
+        ContentValues valuesShare = new ContentValues();
+        //开始组装数据
+        valuesShare.put("ShareUserId","3114002566");
+        valuesShare.put("ShareTime", "2016-11-27 10:10:10");
+        valuesShare.put("ShareLike","0");
+        valuesShare.put("ShareContent", "吴乃福测试内容，今天天气特别好,我又借了一本Java书");
+        db.insert("share_tab", null, valuesShare);
+
+        ContentValues valuesShare1 = new ContentValues();
+        //开始组装数据
+        valuesShare1.put("ShareUserId","3114002566");
+        valuesShare1.put("ShareTime", "2016-11-27 12:39:10");
+        valuesShare1.put("ShareLike","0");
+        valuesShare1.put("ShareContent", "今天在图书馆捡到两块钱，我把他交给了管理员");
+        db.insert("share_tab", null, valuesShare1);
+
+        ContentValues valuesShare2 = new ContentValues();
+        //开始组装数据
+        valuesShare2.put("ShareUserId","3114002581");
+        valuesShare2.put("ShareTime", "2016-11-28 16:19:10");
+        valuesShare2.put("ShareLike","0");
+        valuesShare2.put("ShareContent", "荣测试内容，今天天气特别好,我又借了一本Java书");
+        db.insert("share_tab", null, valuesShare2);
+
+        ContentValues valuesShare3 = new ContentValues();
+        //开始组装数据
+        valuesShare3.put("ShareUserId","3114002581");
+        valuesShare3.put("ShareTime", "2016-11-29 14:19:10");
+        valuesShare3.put("ShareLike","0");
+        valuesShare3.put("ShareContent", "今天适合去图书馆看书，哈哈哈");
+        db.insert("share_tab", null, valuesShare3);
+
+        ContentValues valuesShare4 = new ContentValues();
+        //开始组装数据
+        valuesShare4.put("ShareUserId","3114002566");
+        valuesShare4.put("ShareTime", "2016-11-29 15:39:10");
+        valuesShare4.put("ShareLike","0");
+        valuesShare4.put("ShareContent", "今天在图书馆看到有人在装逼，吓得我去看了会书，一脸懵逼，德玛西亚万岁");
+        db.insert("share_tab", null, valuesShare4);
 
     }
 }

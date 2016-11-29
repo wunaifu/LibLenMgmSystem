@@ -63,7 +63,7 @@ public class NowLendUserinfoActivity extends Activity implements View.OnClickLis
         tv_address=(TextView)findViewById(R.id.tv_userinfo_address);
         imageViewBack=(ImageView)findViewById(R.id.image_shdotinfo_back);
         tv_updateInfo= (TextView) findViewById(R.id.tv_userinfo_update);
-        tv_updateInfo.setVisibility(View.GONE);
+        tv_updateInfo.setVisibility(View.INVISIBLE);
         imageViewBack.setOnClickListener(this);
     }
 
