@@ -246,6 +246,7 @@ public class BookListActivity extends Activity implements AdapterView.OnItemClic
         Gson gson = new Gson();
         String bookJS=gson.toJson(book);
         intent.putExtra("bookInfo",bookJS);
+        intent.putExtra("returnActivityType", 0);
         startActivity(intent);
         finish();
     }

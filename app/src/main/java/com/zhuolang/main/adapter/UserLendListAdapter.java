@@ -1,6 +1,7 @@
 package com.zhuolang.main.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.zhuolang.main.R;
 import com.zhuolang.main.model.NowLend;
 import com.zhuolang.main.model.UserNowLend;
+import com.zhuolang.main.ui.activity.NowLendUserinfoActivity;
 import com.zhuolang.main.utils.TimeUtil;
 
 import java.util.Date;
@@ -65,7 +67,7 @@ public class UserLendListAdapter extends BaseAdapter {
      * @return
      */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         //判断布局有没有填充过，例如一个listview有多个item，只需要在第一个item的时候创建，后面的可以使用已经创建的了，可以省时间和空间
 //        if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_userlend_list, null);
@@ -88,14 +90,22 @@ public class UserLendListAdapter extends BaseAdapter {
 
         int days = TimeUtil.oleTimeTonowTime(lendTime, TimeUtil.dateToStrNoTime(date1));
         Log.d("testrun", "TimeUtil.dateToStrNoTime(date1)" + TimeUtil.dateToStrNoTime(date1));
-        holder.tv_num.setText((position+1)+"");
+        holder.tv_num.setText((position + 1) + "");
         holder.tv_userName.setText(list.get(position).getUserName());
         holder.tv_bookName.setText(list.get(position).getBookName());
         holder.tv_days.setText("已借天数："+days);
         holder.tv_lendTime.setText("借出日期："+lendTime);
         holder.tv_returnTime.setText("最迟还期："+TimeUtil.oleTimeAddDay(lendTime,60));
         holder.tv_bookAmount.setText("已借："+list.get(position).getLendRead().getNumber()+"本");
-
+        holder.tv_userName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(context, NowLendUserinfoActivity.class);
+                intent.putExtra("userId",list.get(position).getLendRead().getUserId());
+                context.startActivity(intent);
+            }
+        });
         return convertView;
     }
 

@@ -88,6 +88,8 @@ public class ShareSpecificInfoActivity extends Activity implements View.OnClickL
         imageViewBack.setOnClickListener(this);
         tv_del.setOnClickListener(this);
         image_likes.setOnClickListener(this);
+        tv_name.setOnClickListener(this);
+
         if (!userAccount.equals(shareUserId)) {
             tv_del.setVisibility(View.INVISIBLE);
         }
@@ -109,6 +111,13 @@ public class ShareSpecificInfoActivity extends Activity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_share_specificinfo_username:
+                Intent intent = new Intent();
+                intent.setClass(ShareSpecificInfoActivity.this, NowLendUserinfoActivity.class);
+                intent.putExtra("userId",shareUserId);
+                startActivity(intent);
+
+                break;
             case R.id.iv_share_specificinfo_back:
                 ShareInfoListActivity.updateData();
                 finish();

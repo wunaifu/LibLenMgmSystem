@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="鲁智深"
-                android:textColor="#4d4c4c"
+                android:textColor="@color/steelblue"
                 android:id="@+id/tv_item_userlend_username"
                 android:textSize="18sp"
                 android:layout_gravity="center_vertical"/>

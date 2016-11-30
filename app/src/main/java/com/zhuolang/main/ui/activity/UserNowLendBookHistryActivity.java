@@ -38,6 +38,7 @@ public class UserNowLendBookHistryActivity extends Activity implements AdapterVi
     private ListView listView;
     private ImageView img_back;
     private TextView tv_hint;
+    private TextView tv_top;
 
     private MyDatabaseHelper dbHelper;
     private UserLendListAdapter adapter;
@@ -68,7 +69,9 @@ public class UserNowLendBookHistryActivity extends Activity implements AdapterVi
         db = dbHelper.getWritableDatabase();
 
         tv_hint = (TextView) findViewById(R.id.tv_nowlendhis_hint);
-        tv_hint.setText("选择借阅项可查看借阅者信息");
+        tv_top = (TextView) findViewById(R.id.tv_nowlendhis_listtop);
+        tv_hint.setText("选择借阅项可查看借阅信息");
+        tv_top.setText("历史借阅情况");
         listView = (ListView) findViewById(R.id.lv_nowlendhistry_list);
         listView.setOnItemClickListener(this);
 
@@ -102,7 +105,7 @@ public class UserNowLendBookHistryActivity extends Activity implements AdapterVi
                     do {
                         LendRead lendRead = new LendRead();
                         lendRead.setDays(cursor.getString(cursor.getColumnIndex("Days")));
-                        if (lendRead.getDays().equals("false")) {
+                        if (!lendRead.getDays().equals("false")) {
                             lendRead.setLendId(cursor.getString(cursor.getColumnIndex("LendId")));
                             lendRead.setUserId(cursor.getString(cursor.getColumnIndex("UserId")));
                             lendRead.setBookId(cursor.getString(cursor.getColumnIndex("BookId")));
@@ -159,9 +162,40 @@ public class UserNowLendBookHistryActivity extends Activity implements AdapterVi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        Intent intent = new Intent();
+//        intent.setClass(UserNowLendBookHistryActivity.this, NowLendUserinfoActivity.class);
+//        intent.putExtra("userId",userLendList.get(position).getLendRead().getUserId());
+//        startActivity(intent);
+        Book book = new Book();
+        book.setBookId(userLendList.get(position).getLendRead().getBookId());
+        Cursor cursorbook = db.query("book_tab", null, null, null, null, null, null);
+        if (!cursorbook.moveToFirst()) {
+
+        } else {
+            do {
+                String bookid = cursorbook.getString(cursorbook.getColumnIndex("BookId"));
+                if (bookid.equals(book.getBookId())) {
+                    book.setBookName(cursorbook.getString(cursorbook.getColumnIndex("BookName")));
+                    book.setBookType(cursorbook.getString(cursorbook.getColumnIndex("BookType")));
+                    book.setBookAuthor(cursorbook.getString(cursorbook.getColumnIndex("BookAuthor")));
+                    book.setBookPublisher(cursorbook.getString(cursorbook.getColumnIndex("BookPublisher")));
+                    book.setBookPublyear(cursorbook.getString(cursorbook.getColumnIndex("BookPublyear")));
+                    book.setBookPrice(cursorbook.getString(cursorbook.getColumnIndex("BookPrice")));
+                    book.setBookAddress(cursorbook.getString(cursorbook.getColumnIndex("BookAddress")));
+                    book.setBookNumber(cursorbook.getString(cursorbook.getColumnIndex("BookNumber")));
+                    book.setBookLoanable(cursorbook.getString(cursorbook.getColumnIndex("BookLoanable")));
+                    book.setBookConten(cursorbook.getString(cursorbook.getColumnIndex("BookContent")));
+                }
+            }while (cursorbook.moveToNext()) ;
+            cursorbook.close();
+        }
         Intent intent = new Intent();
-        intent.setClass(UserNowLendBookHistryActivity.this, NowLendUserinfoActivity.class);
-        intent.putExtra("userId",userLendList.get(position).getLendRead().getUserId());
+        intent.setClass(UserNowLendBookHistryActivity.this, LendBookListDetailActivity.class);
+        Gson gson = new Gson();
+        String bookJS=gson.toJson(book);
+        intent.putExtra("bookInfo",bookJS);
+        intent.putExtra("returnActivityType", 1);
         startActivity(intent);
+//        finish();
     }
 }

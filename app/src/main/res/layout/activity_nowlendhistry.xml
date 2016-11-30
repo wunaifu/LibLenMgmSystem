@@ -20,7 +20,7 @@
         <TextView
             android:text="当前借阅情况"
             android:textSize="20sp"
-            android:id="@+id/tv_booklist_list"
+            android:id="@+id/tv_nowlendhis_listtop"
             android:textColor="#ffffff"
             android:layout_gravity="center_vertical"
             android:layout_centerHorizontal="true"

@@ -67,10 +67,10 @@ public class HomepageTabFragment extends Fragment implements View.OnClickListene
             tv_updateBook.setText("更新图书信息");
 
             iv_lendhistry.setImageResource(R.drawable.updatelend);
-            tv_histry.setText("更改借阅信息");
+            tv_histry.setText("当前借阅情况");
 
             iv_nowlend.setImageResource(R.drawable.rmyappointment);
-            tv_nowlend.setText("查看借阅情况");
+            tv_nowlend.setText("历史借阅情况");
         }
         iv_updateBook.setOnClickListener(this);
         iv_bookList.setOnClickListener(this);

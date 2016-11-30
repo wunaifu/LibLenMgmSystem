@@ -72,8 +72,8 @@ public class RegisterActivity extends Activity {
                 psd = et_psd.getText().toString().trim();
                 name = et_name.getText().toString().trim();
                 phone = et_phone.getText().toString().trim();
-                if (id.equals("") || psd.equals("")) {
-                    Toast.makeText(RegisterActivity.this, "账号密码不能为空！", Toast.LENGTH_SHORT).show();
+                if (id.equals("") || psd.equals("")||name.equals("")||phone.equals("")) {
+                    Toast.makeText(RegisterActivity.this, "不能为空,请继续填写！", Toast.LENGTH_SHORT).show();
                 } else{
 
                     Cursor cursor=db.query("user_tab",null, null, null, null,null,null);

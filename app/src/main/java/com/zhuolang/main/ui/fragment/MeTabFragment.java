@@ -87,6 +87,7 @@ public class MeTabFragment extends Fragment implements View.OnClickListener{
         imageView.setOnClickListener(this);
         if (userType == 1) {
             tv_lendbook.setText(" 更新图书信息");
+            tv_returnbook.setText(" 修改借阅情况");
         }else {
             ll_nowlend.setVisibility(View.GONE);
         }

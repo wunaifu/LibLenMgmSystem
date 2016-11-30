@@ -54,6 +54,7 @@ public class LendBookListDetailActivity extends Activity {
     private Gson gson = new Gson();
     private MyDatabaseHelper dbHelper;
     private SQLiteDatabase db;
+    private int returnActivityType = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class LendBookListDetailActivity extends Activity {
         userType = SharedPrefsUtil.getValue(this, APPConfig.USERTYPE, 0);
 
         bookInfoStr=getIntent().getStringExtra("bookInfo");
+        returnActivityType = getIntent().getIntExtra("returnActivityType", 0);
         book=gson.fromJson(bookInfoStr, Book.class);
 
         initView();
@@ -201,10 +203,15 @@ public class LendBookListDetailActivity extends Activity {
         imageViewback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(LendBookListDetailActivity.this, BookListActivity.class);
-                startActivity(intent);
-                finish();
+                if (returnActivityType == 1) {
+                    finish();
+                }else {
+                    Intent intent = new Intent();
+                    intent.setClass(LendBookListDetailActivity.this, BookListActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
         });
     }
@@ -212,10 +219,14 @@ public class LendBookListDetailActivity extends Activity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            Intent intent = new Intent();
-            intent.setClass(LendBookListDetailActivity.this, BookListActivity.class);
-            startActivity(intent);
-            finish();
+            if (returnActivityType == 1) {
+                finish();
+            }else {
+                Intent intent = new Intent();
+                intent.setClass(LendBookListDetailActivity.this, BookListActivity.class);
+                startActivity(intent);
+                finish();
+            }
             return true;
         }
         return super.onKeyDown(keyCode, event);
