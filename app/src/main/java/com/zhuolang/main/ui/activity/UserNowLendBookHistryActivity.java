@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.zhuolang.main.R;
 import com.zhuolang.main.adapter.LendReadListAdapter;
 import com.zhuolang.main.adapter.UserLendListAdapter;
+import com.zhuolang.main.adapter.UserLendListHistryAdapter;
 import com.zhuolang.main.common.APPConfig;
 import com.zhuolang.main.database.MyDatabaseHelper;
 import com.zhuolang.main.model.Book;
@@ -41,7 +42,7 @@ public class UserNowLendBookHistryActivity extends Activity implements AdapterVi
     private TextView tv_top;
 
     private MyDatabaseHelper dbHelper;
-    private UserLendListAdapter adapter;
+    private UserLendListHistryAdapter adapter;
     private SQLiteDatabase db;
     private List<UserNowLend> userLendList = new ArrayList<>();
     private String userId;
@@ -52,7 +53,7 @@ public class UserNowLendBookHistryActivity extends Activity implements AdapterVi
         public void handleMessage(Message msg) {
 //            super.handleMessage(msg);
             if (msg.obj.equals("true")) {
-                adapter = new UserLendListAdapter(UserNowLendBookHistryActivity.this, userLendList);
+                adapter = new UserLendListHistryAdapter(UserNowLendBookHistryActivity.this, userLendList);
                 listView.setAdapter(adapter);
             }else {
                 Toast.makeText(UserNowLendBookHistryActivity.this, "对不起，当前没有正在借阅的图书", Toast.LENGTH_SHORT).show();
@@ -70,7 +71,7 @@ public class UserNowLendBookHistryActivity extends Activity implements AdapterVi
 
         tv_hint = (TextView) findViewById(R.id.tv_nowlendhis_hint);
         tv_top = (TextView) findViewById(R.id.tv_nowlendhis_listtop);
-        tv_hint.setText("选择借阅项可查看借阅信息");
+        tv_hint.setText("选择借阅项可查看借阅书籍信息");
         tv_top.setText("历史借阅情况");
         listView = (ListView) findViewById(R.id.lv_nowlendhistry_list);
         listView.setOnItemClickListener(this);

@@ -75,7 +75,7 @@
                     android:id="@+id/tv_me_nowlend"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
-                    android:text=" 当前借阅情况 "
+                    android:text=" 历史借阅情况 "
                     android:textSize="18dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
